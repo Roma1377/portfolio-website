@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roma1377 | Дата-ассистент & Специалист по анализу данных</title>
+    <meta name="description" content="Профессиональный анализ данных | Превращаю хаос в порядок | Очистка, визуализация, автоматизация отчетов">
+    <meta name="author" content="Roma1377">
+
+    <!-- Security Headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self'">
+    <meta name="referrer" content="no-referrer">
+
+    <!-- Preload Resources -->
+    <link rel="preload" href="style.css" as="style">
+    <link rel="preload" href="script.js" as="script">
+
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- New Libraries -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Protection Script -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Улучшенная защита без блокировки легитимных действий
+        document.addEventListener('contextmenu', function(e) {
+            if (e.target.tagName === 'IMG') {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // Разрешаем выделение текста для лучшего UX
+        // document.addEventListener('selectstart', function(e) { e.preventDefault(); return false; });
+
+        document.addEventListener('dragstart', function(e) {
+            if (e.target.tagName === 'IMG') {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.shiftKey && e.key === 'I') {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // Убрана агрессивная проверка DevTools для нормальной работы сайта
+    });
+    </script>
+</head>
+<body data-theme="light">
+    <!-- Водяной знак защиты -->
+    <div class="watermark" data-watermark="Roma1377 Data Portfolio - Protected Content"></div>
+
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="loader">
+            <div class="loader-circle"></div>
+            <p>Загрузка портфолио...</p>
+        </div>
+    </div>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Floating Navigation -->
+    <nav class="floating-nav">
+        <div class="nav-container">
+            <a href="#hero" class="nav-logo">Roma1377</a>
+            <div class="nav-links">
+                <a href="#about"><i class="fas fa-user"></i> Обо мне</a>
+                <a href="#services"><i class="fas fa-cogs"></i> Услуги</a>
+                <a href="#portfolio"><i class="fas fa-briefcase"></i> Портфолио</a>
+                <a href="#testimonials"><i class="fas fa-star"></i> Отзывы</a>
+                <a href="#process"><i class="fas fa-chart-line"></i> Процесс</a>
+                <a href="#contact"><i class="fas fa-envelope"></i> Контакты</a>
+            </div>
+            <button class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-background">
+            <div class="particles" id="particles-js"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span>🚀 Доступен для проектов</span>
+                </div>
+                <h1 class="hero-title">
+                    <span class="title-line">Превращаю <span class="text-gradient">хаос данных</span></span>
+                    <span class="title-line">в <span class="text-gradient">четкие инсайты</span></span>
+                </h1>
+                <p class="hero-subtitle">
+                    Дата-ассистент | Специалист по обработке и визуализации данных
+                </p>
+                <div class="typewriter-container">
+                    <span class="typewriter-text"></span>
+                </div>
+                <p class="hero-description">
+                    Освобождаю время бизнеса, беря на себя всю работу с данными. Вы предоставляете «сырые» данные - я возвращаю готовые инсайты для принятия решений.
+                </p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number" data-count="100">0</span>
+                        <span class="stat-label">% точность</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" data-count="50">0</span>
+                        <span class="stat-label">проектов</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" data-count="99">0</span>
+                        <span class="stat-label">% довольных</span>
+                    </div>
+                </div>
+                <div class="hero-actions">
+                    <a href="#portfolio" class="btn btn-primary">
+                        <i class="fas fa-chart-bar"></i>
+                        Смотреть работы
+                    </a>
+                    <a href="#contact" class="btn btn-secondary">
+                        <i class="fas fa-paper-plane"></i>
+                        Обсудить проект
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="floating-cards">
+                    <div class="card card-1">
+                        <i class="fas fa-database"></i>
+                        <span>Анализ данных</span>
+                    </div>
+                    <div class="card card-2">
+                        <i class="fas fa-chart-pie"></i>
+                        <span>Визуализация</span>
+                    </div>
+                    <div class="card card-3">
+                        <i class="fas fa-robot"></i>
+                        <span>Автоматизация</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator">
+            <div class="scroll-line"></div>
+            <span>Листайте вниз</span>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section about">
+        <div class="container">
+            <div class="section-header">
+                <h2>🎯 Обо мне</h2>
+                <p>Эффективный и внимательный специалист, который превращает разрозненные цифры в порядок</p>
+            </div>
+            <div class="about-grid">
+                <div class="about-content">
+                    <h3>Почему выбирают меня?</h3>
+                    <p>Я беру на себя всю рутинную работу с данными, чтобы вы могли сосредоточиться на стратегических задачах. От простой очистки таблиц до сложных аналитических дашбордов - я превращаю хаос в структурированные, понятные отчеты.</p>
+
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">Excel / Google Таблицы</span>
+                                <span class="skill-level">Продвинутый</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-level="95"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">Очистка данных</span>
+                                <span class="skill-level">Эксперт</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-level="98"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">Визуализация</span>
+                                <span class="skill-level">Продвинутый</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-level="90"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">Автоматизация</span>
+                                <span class="skill-level">Продвинутый</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-level="92"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <div class="image-placeholder">
+                        <i class="fas fa-laptop-code"></i>
+                        <p>Профессиональный анализ данных</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section services">
+        <div class="container">
+            <div class="section-header">
+                <h2>🛠️ Услуги</h2>
+                <p>Комплексные решения для ваших данных</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-broom"></i>
+                    </div>
+                    <h3>Очистка данных</h3>
+                    <p>Удаление дубликатов, исправление ошибок, приведение к единому формату. Ваши данные будут идеально чистыми.</p>
+                    <ul class="service-features">
+                        <li>Удаление дубликатов</li>
+                        <li>Исправление опечаток</li>
+                        <li>Стандартизация форматов</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>Визуализация</h3>
+                    <p>Создание понятных диаграмм и дашбордов. Превращаю скучные цифры в наглядные истории.</p>
+                    <ul class="service-features">
+                        <li>Интерактивные дашборды</li>
+                        <li>Ключевые метрики KPI</li>
+                        <li>Автообновление отчетов</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>Автоматизация</h3>
+                    <p>Настройка автоматических отчетов. Больше не тратьте время на рутинные задачи.</p>
+                    <ul class="service-features">
+                        <li>Ежедневные отчеты</li>
+                        <li>Автоматические уведомления</li>
+                        <li>Интеграция с системами</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Анализ эффективности</h3>
+                    <p>Глубокий анализ данных для поиска скрытых возможностей и точек роста.</p>
+                    <ul class="service-features">
+                        <li>Анализ трендов</li>
+                        <li>Выявление аномалий</li>
+                        <li>Прогнозные модели</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="section portfolio">
+        <div class="container">
+            <div class="section-header">
+                <h2>💼 Портфолио</h2>
+                <p>Реальные примеры моих работ</p>
+            </div>
+
+            <!-- Project 1: Financial Analysis -->
+            <div class="project-showcase">
+                <div class="project-content">
+                    <div class="project-badge">Кейс изучения</div>
+                    <h3>Анализ личных финансов</h3>
+                    <p class="project-description">
+                        Преобразование неструктурированных финансовых записей в чистые данные и аналитику для выявления финансовых привычек.
+                    </p>
+
+                    <div class="project-stats">
+                        <div class="project-stat">
+                            <span class="stat-value">1,320,000 ₽</span>
+                            <span class="stat-label">Общий доход</span>
+                        </div>
+                        <div class="project-stat">
+                            <span class="stat-value">49,150 ₽</span>
+                            <span class="stat-label">Общий расход</span>
+                        </div>
+                        <div class="project-stat">
+                            <span class="stat-value">1,270,850 ₽</span>
+                            <span class="stat-label">Чистая прибыль</span>
+                        </div>
+                        <div class="project-stat">
+                            <span class="stat-value">26.85</span>
+                            <span class="stat-label">Эффективность</span>
+                        </div>
+                    </div>
+
+                    <div class="project-tasks">
+                        <h4>Решенные задачи:</h4>
+                        <ul>
+                            <li>✅ Стандартизация разных форматов дат</li>
+                            <li>✅ Очистка числовых полей от текстовых символов</li>
+                            <li>✅ Унификация категорий расходов</li>
+                            <li>✅ Создание интерактивного дашборда</li>
+                            <li>✅ Автоматизация расчета ключевых метрик</li>
+                        </ul>
+                    </div>
+
+                    <div class="project-technologies">
+                        <h4>Использованные технологии:</h4>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Google Таблицы</span>
+                            <span class="tech-tag">Формулы Excel</span>
+                            <span class="tech-tag">Сводные таблицы</span>
+                            <span class="tech-tag">Диаграммы</span>
+                            <span class="tech-tag">Автоматизация</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-visualization">
+                    <h4>Визуализация результатов:</h4>
+                    <div class="visualization-grid">
+                        <div class="viz-item">
+                            <div class="image-container">
+                                <img src="assets/images/График Динамика росходов и расходов по месяцам.png"
+                                     alt="Динамика доходов и расходов" class="protected-image">
+                                <div class="image-overlay">
+                                    <button class="zoom-btn" data-image="assets/images/График Динамика росходов и расходов по месяцам.png">
+                                        <i class="fas fa-expand"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <p>Динамика финансов за 8 месяцев</p>
+                        </div>
+                        <div class="viz-item">
+                            <div class="image-container">
+                                <img src="assets/images/Финансовые результаты.png"
+                                     alt="Структура расходов" class="protected-image">
+                                <div class="image-overlay">
+                                    <button class="zoom-btn" data-image="assets/images/Финансовые результаты.png">
+                                        <i class="fas fa-expand"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <p>Структура расходов по категориям</p>
+                        </div>
+                        <div class="viz-item">
+                            <div class="image-container">
+                                <img src="assets/images/Интерактивный дашборд.png"
+                                     alt="Интерактивный дашборд" class="protected-image">
+                                <div class="image-overlay">
+                                    <button class="zoom-btn" data-image="assets/images/Интерактивный дашборд.png">
+                                        <i class="fas fa-expand"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <p>Интерактивная панель управления</p>
+                        </div>
+                        <div class="viz-item">
+                            <div class="image-container">
+                                <img src="assets/images/Показатели и Расход по приоритетам.png"
+                                     alt="Топ категорий расходов" class="protected-image">
+                                <div class="image-overlay">
+                                    <button class="zoom-btn" data-image="assets/images/Показатели и Расход по приоритетам.png">
+                                        <i class="fas fa-expand"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <p>Анализ расходов по приоритетам</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="section testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>⭐ Отзывы клиентов</h2>
+                <p>Что говорят о моей работе</p>
+            </div>
+            <div class="testimonials-slider">
+                <div class="testimonial-track">
+                    <div class="testimonial-slide">
+                        <div class="testimonial-card">
+                            <div class="testimonial-content">
+                                <p>"Roma1377 проделал фантастическую работу по очистке и анализу наших данных. Результаты превзошли ожидания!"</p>
+                            </div>
+                            <div class="testimonial-author">
+                                <div class="author-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="author-info">
+                                    <h4>Анна К.</h4>
+                                    <span>Маркетинг-директор</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-slide">
+                        <div class="testimonial-card">
+                            <div class="testimonial-content">
+                                <p>"Автоматизация отчетов сэкономила нам десятки часов в месяц. Очень профессионально и внимательно к деталям."</p>
+                            </div>
+                            <div class="testimonial-author">
+                                <div class="author-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="author-info">
+                                    <h4>Иван П.</h4>
+                                    <span>Владелец бизнеса</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-slide">
+                        <div class="testimonial-card">
+                            <div class="testimonial-content">
+                                <p>"Визуализация данных была выполнена безупречно. Теперь мы можем принимать решения на основе понятных дашбордов."</p>
+                            </div>
+                            <div class="testimonial-author">
+                                <div class="author-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="author-info">
+                                    <h4>Мария Л.</h4>
+                                    <span>Аналитик</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider-controls">
+                    <button class="slider-prev"><i class="fas fa-chevron-left"></i></button>
+                    <button class="slider-next"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process" class="section process">
+        <div class="container">
+            <div class="section-header">
+                <h2>📈 Процесс работы</h2>
+                <p>Четкий план от задачи до результата</p>
+            </div>
+            <div class="process-timeline">
+                <div class="process-step">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h3>Обсуждение задачи</h3>
+                        <p>Анализируем ваши потребности, определяем цели и ожидаемые результаты</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h3>Сбор и анализ данных</h3>
+                        <p>Получаю исходные данные, провожу первичный анализ и выявляю проблемы</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h3>Очистка и структурирование</h3>
+                        <p>Привожу данные к единому формату, удаляю ошибки и дубликаты</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">04</div>
+                    <div class="step-content">
+                        <h3>Анализ и визуализация</h3>
+                        <p>Провожу глубокий анализ и создаю наглядные отчеты</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">05</div>
+                    <div class="step-content">
+                        <h3>Представление результатов</h3>
+                        <p>Предоставляю готовое решение с пояснениями и рекомендациями</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Готовы превратить ваши данные в преимущество?</h2>
+                <p>Свяжитесь со мной для бесплатной консультации по вашему проекту</p>
+                <div class="cta-actions">
+                    <a href="#contact" class="btn btn-primary btn-large">
+                        <i class="fas fa-calendar-check"></i>
+                        Запланировать консультацию
+                    </a>
+                    <a href="#portfolio" class="btn btn-secondary btn-large">
+                        <i class="fas fa-eye"></i>
+                        Посмотреть другие работы
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>📞 Контакты</h2>
+                <p>Давайте обсудим ваш проект</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Свяжитесь со мной</h3>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <strong>Email</strong>
+                            <span>t.radiya7@gmail.com</span>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-telegram"></i>
+                        <div>
+                            <strong>Telegram</strong>
+                            <span>@Roma1377</span>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-github"></i>
+                        <div>
+                            <strong>GitHub</strong>
+                            <span>Roma1377</span>
+                        </div>
+                    </div>
+                    <div class="contact-hours">
+                        <h4>Время ответа:</h4>
+                        <p>🕒 1-2 часа в рабочее время</p>
+                        <p>💬 Консультация - бесплатно</p>
+                    </div>
+
+                    <!-- Map Container -->
+                    <div class="map-container">
+                        <div id="map"></div>
+                        <div class="map-overlay">
+                            <p>📍 Работаю удаленно по всему миру</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm" class="ajax-form">
+                        <div class="form-group">
+                            <label for="name">Ваше имя *</label>
+                            <input type="text" id="name" name="name" required>
+                            <span class="validation-error"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required>
+                            <span class="validation-error"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="project">Тип проекта</label>
+                            <select id="project" name="project">
+                                <option value="">Выберите тип проекта</option>
+                                <option value="cleaning">Очистка данных</option>
+                                <option value="analysis">Анализ данных</option>
+                                <option value="visualization">Визуализация</option>
+                                <option value="automation">Автоматизация</option>
+                                <option value="other">Другое</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Опишите задачу *</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                            <span class="validation-error"></span>
+                        </div>
+                        <div class="form-group">
+                            <div class="file-upload">
+                                <label for="file">
+                                    <i class="fas fa-paperclip"></i>
+                                    Прикрепить файл (опционально)
+                                </label>
+                                <input type="file" id="file" name="file" accept=".xlsx,.xls,.csv,.pdf,.doc,.docx">
+                                <span class="file-name"></span>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">
+                            <i class="fas fa-paper-plane"></i>
+                            Отправить запрос
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>Roma1377</h3>
+                    <p>Дата-ассистент | Специалист по обработке и визуализации данных</p>
+                    <div class="social-links">
+                        <a href="https://t.me/Roma1377" class="social-link"><i class="fab fa-telegram"></i></a>
+                        <a href="https://github.com/Roma1377" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Быстрые ссылки</h4>
+                    <a href="#about">Обо мне</a>
+                    <a href="#services">Услуги</a>
+                    <a href="#portfolio">Портфолио</a>
+                    <a href="#contact">Контакты</a>
+                </div>
+                <div class="footer-services">
+                    <h4>Услуги</h4>
+                    <a href="#services">Очистка данных</a>
+                    <a href="#services">Визуализация</a>
+                    <a href="#services">Автоматизация</a>
+                    <a href="#services">Анализ эффективности</a>
+                </div>
+                <div class="footer-newsletter">
+                    <h4>Оставайтесь на связи</h4>
+                    <p>Подпишитесь на обновления о новых кейсах</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Ваш email" required>
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="copyright">© 2024 Roma1377. Все права защищены.</p>
+                <p class="security-badge">
+                    <i class="fas fa-shield-alt"></i>
+                    Защищенное портфолио
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Image Modal -->
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <img src="" alt="" id="modalImage">
+            <div class="modal-caption"></div>
+        </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <div class="fab">
+        <button class="fab-button">
+            <i class="fas fa-comment"></i>
+        </button>
+        <div class="fab-options">
+            <a href="https://t.me/Roma1377" class="fab-option telegram">
+                <i class="fab fa-telegram"></i>
+            </a>
+            <a href="mailto:t.radiya7@gmail.com" class="fab-option email">
+                <i class="fas fa-envelope"></i>
+            </a>
+            <a href="#contact" class="fab-option contact">
+                <i class="fas fa-phone"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+</body>
+</html>
