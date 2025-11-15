@@ -648,7 +648,7 @@
                 }).addTo(map);
 
                 L.marker([55.7558, 37.6173]).addTo(map)
-                .bindPopup('Работаю удаленно по всему миру')
+                .bindPopup('Работаю удаленно')
                 .openPopup();
             } catch (error) {
                 console.log('Map initialization failed:', error);
