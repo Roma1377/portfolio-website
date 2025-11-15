@@ -11,6 +11,7 @@
         init() {
             this.protectContent();
             this.antiScreenCapture();
+            this.setupEnhancedProtection();
         }
 
         protectContent() {
@@ -57,6 +58,32 @@
             });
         }
 
+        setupEnhancedProtection() {
+            // Защита от горячих клавиш для скриншотов
+            document.addEventListener('keydown', (e) => {
+                // Windows + Shift + S, Cmd + Shift + 3/4 и т.д.
+                if ((e.ctrlKey && e.shiftKey && e.key === 'S') ||
+                    (e.metaKey && e.shiftKey && (e.key === '3' || e.key === '4'))) {
+                    e.preventDefault();
+                this.showWarning('Создание скриншотов ограничено');
+                return false;
+                    }
+            });
+
+            // Защита от вставки изображений
+            document.addEventListener('paste', (e) => {
+                if (e.clipboardData && e.clipboardData.items) {
+                    for (let item of e.clipboardData.items) {
+                        if (item.type.indexOf('image') !== -1) {
+                            e.preventDefault();
+                            this.showWarning('Вставка изображений запрещена');
+                            return false;
+                        }
+                    }
+                }
+            });
+        }
+
         showWarning(message) {
             const warning = document.createElement('div');
             warning.style.cssText = `
@@ -96,21 +123,23 @@
         init() {
             this.setupPreloader();
             this.setupNavigation();
-            this.setupThemeToggle();
+            this.setupEnhancedNavigation();
+            this.setupEnhancedThemeToggle();
             this.setupAnimations();
             this.setupCounters();
             this.setupParticles();
-            this.setupImageModal();
+            this.setupEnhancedModal();
+            this.setupImageProtection();
             this.setupContactForm();
             this.setupFloatingActions();
             this.setupBackToTop();
             this.setupProgressBar();
             this.setupTypewriter();
-            this.setupTestimonials();
             this.setupMap();
             this.updateCopyright();
             this.setupConsoleGreeting();
             this.setupParallax();
+            this.cleanupTestimonials();
         }
 
         setupPreloader() {
@@ -171,9 +200,31 @@
             });
         }
 
-        setupThemeToggle() {
+        setupEnhancedNavigation() {
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    // Добавляем индикацию активного раздела
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                });
+            });
+        }
+
+        setupEnhancedThemeToggle() {
             const themeToggle = document.getElementById('themeToggle');
-            const icon = themeToggle.querySelector('i');
+            const themeIcon = themeToggle.querySelector('.theme-icon');
+            const themeText = themeToggle.querySelector('.theme-text');
+
+            const updateThemeUI = (theme) => {
+                if (theme === 'dark') {
+                    themeIcon.classList.replace('fa-moon', 'fa-sun');
+                    themeText.textContent = 'Светлая';
+                } else {
+                    themeIcon.classList.replace('fa-sun', 'fa-moon');
+                    themeText.textContent = 'Тёмная';
+                }
+            };
 
             // Check for saved theme or prefer color scheme
             const savedTheme = localStorage.getItem('theme');
@@ -181,24 +232,14 @@
 
             let currentTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
             document.documentElement.setAttribute('data-theme', currentTheme);
-            this.updateThemeIcon(icon, currentTheme);
+            updateThemeUI(currentTheme);
 
             themeToggle.addEventListener('click', () => {
                 currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
                 document.documentElement.setAttribute('data-theme', currentTheme);
                 localStorage.setItem('theme', currentTheme);
-                this.updateThemeIcon(icon, currentTheme);
+                updateThemeUI(currentTheme);
             });
-        }
-
-        updateThemeIcon(icon, theme) {
-            if (theme === 'dark') {
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
-            } else {
-                icon.classList.remove('fa-sun');
-                icon.classList.add('fa-moon');
-            }
         }
 
         setupAnimations() {
@@ -323,44 +364,57 @@
             }
         }
 
-        setupImageModal() {
+        setupEnhancedModal() {
             const modal = document.getElementById('imageModal');
-            const modalImage = document.getElementById('modalImage');
+            const modalImg = document.getElementById('modalImage');
             const modalCaption = document.querySelector('.modal-caption');
             const closeBtn = document.querySelector('.modal-close');
 
             document.querySelectorAll('.zoom-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const imageSrc = btn.getAttribute('data-image');
-                    const imageAlt = btn.closest('.viz-item').querySelector('img').alt;
+                    e.preventDefault();
+                    const imgSrc = btn.getAttribute('data-image');
+                    const caption = btn.getAttribute('data-caption') || btn.closest('.viz-item').querySelector('p').textContent;
 
-                    modalImage.src = imageSrc;
-                    modalCaption.textContent = imageAlt;
+                    modalImg.src = imgSrc;
+                    modalImg.alt = caption;
+                    modalCaption.textContent = caption;
                     modal.classList.add('active');
                     document.body.style.overflow = 'hidden';
+
+                    // Добавляем защиту для модального изображения
+                    modalImg.classList.add('protected-image');
                 });
             });
 
-            // Close modal
-            closeBtn.addEventListener('click', () => {
-                modal.classList.remove('active');
-                document.body.style.overflow = '';
+            // Закрытие модального окна
+            [closeBtn, modal].forEach(element => {
+                element.addEventListener('click', (e) => {
+                    if (e.target === closeBtn || e.target === modal) {
+                        modal.classList.remove('active');
+                        document.body.style.overflow = '';
+                        modalImg.src = '';
+                        modalImg.alt = '';
+                    }
+                });
             });
 
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.classList.remove('active');
-                    document.body.style.overflow = '';
-                }
-            });
-
-            // Close on escape key
+            // Закрытие по Escape
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape' && modal.classList.contains('active')) {
                     modal.classList.remove('active');
                     document.body.style.overflow = '';
                 }
+            });
+        }
+
+        setupImageProtection() {
+            // Улучшенная защита изображений
+            document.querySelectorAll('.portfolio-image').forEach(img => {
+                img.addEventListener('load', function() {
+                    // Добавляем водяной знак поверх изображения
+                    this.style.position = 'relative';
+                });
             });
         }
 
@@ -580,43 +634,6 @@
             setTimeout(typeWriter, 2000);
         }
 
-        setupTestimonials() {
-            const track = document.querySelector('.testimonial-track');
-            const slides = document.querySelectorAll('.testimonial-slide');
-            const prevBtn = document.querySelector('.slider-prev');
-            const nextBtn = document.querySelector('.slider-next');
-
-            if (!track || !slides.length) return;
-
-            const slideWidth = slides[0].offsetWidth;
-            let currentSlide = 0;
-
-            const goToSlide = (index) => {
-                if (index < 0) index = slides.length - 1;
-                if (index >= slides.length) index = 0;
-
-                track.style.transform = `translateX(-${index * slideWidth}px)`;
-                currentSlide = index;
-            };
-
-            if (prevBtn) {
-                prevBtn.addEventListener('click', () => {
-                    goToSlide(currentSlide - 1);
-                });
-            }
-
-            if (nextBtn) {
-                nextBtn.addEventListener('click', () => {
-                    goToSlide(currentSlide + 1);
-                });
-            }
-
-            // Auto slide
-            setInterval(() => {
-                goToSlide(currentSlide + 1);
-            }, 5000);
-        }
-
         setupMap() {
             const mapElement = document.getElementById('map');
             if (!mapElement) return;
@@ -658,9 +675,17 @@
             }
         }
 
+        cleanupTestimonials() {
+            // Временно скрываем раздел с отзывами
+            const testimonialsSection = document.getElementById('testimonials');
+            if (testimonialsSection) {
+                testimonialsSection.style.display = 'none';
+            }
+        }
+
         setupConsoleGreeting() {
             console.log(
-                `%c🔒 ЗАЩИЩЕННОЕ ПОРТФОЛИО ROMA1377\n%c💼 Дата-ассистент | Специалист по анализу данных\n%c📊 Превращаю хаос данных в четкие инсайты\n\n⚡ Защита: Улучшенная система безопасности\n🎯 Навыки: Очистка, анализ, визуализация данных\n🚀 Готова к проектам: t.radiya7@gmail.com`,
+                `%c🔒 УЛУЧШЕННОЕ ЗАЩИЩЕННОЕ ПОРТФОЛИО ROMA1377\n%c💼 Дата-ассистент | Специалист по анализу данных\n%c📊 Превращаю хаос данных в четкие инсайты\n\n⚡ Защита: Улучшенная система безопасности\n🎯 Навыки: Очистка, анализ, визуализация данных\n🚀 Готова к проектам: t.radiya7@gmail.com\n📱 Telegram: @tonettes7`,
                 'color: #667eea; font-size: 18px; font-weight: bold;',
                 'color: #764ba2; font-size: 14px; font-weight: 600;',
                 'color: #333; font-size: 12px;'
@@ -693,6 +718,17 @@
 
     .parallax {
         transition: transform 0.1s ease;
+    }
+
+    @keyframes smoothAppear {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
     `;
     document.head.appendChild(style);

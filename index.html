@@ -68,8 +68,9 @@
     </div>
 
     <!-- Theme Toggle -->
-    <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">
-        <i class="fas fa-moon"></i>
+    <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему" title="Сменить тему">
+        <i class="fas fa-moon theme-icon"></i>
+        <span class="theme-text">Тёмная</span>
     </button>
 
     <!-- Floating Navigation -->
@@ -77,14 +78,28 @@
         <div class="nav-container">
             <a href="#hero" class="nav-logo">Roma1377</a>
             <div class="nav-links">
-                <a href="#about"><i class="fas fa-user"></i> Обо мне</a>
-                <a href="#services"><i class="fas fa-cogs"></i> Услуги</a>
-                <a href="#portfolio"><i class="fas fa-briefcase"></i> Портфолио</a>
-                <a href="#testimonials"><i class="fas fa-star"></i> Отзывы</a>
-                <a href="#process"><i class="fas fa-chart-line"></i> Процесс</a>
-                <a href="#contact"><i class="fas fa-envelope"></i> Контакты</a>
+                <a href="#about" title="Обо мне">
+                    <i class="fas fa-user-tie"></i>
+                    <span class="nav-text">Обо мне</span>
+                </a>
+                <a href="#services" title="Услуги">
+                    <i class="fas fa-cogs"></i>
+                    <span class="nav-text">Услуги</span>
+                </a>
+                <a href="#portfolio" title="Портфолио">
+                    <i class="fas fa-briefcase"></i>
+                    <span class="nav-text">Портфолио</span>
+                </a>
+                <a href="#process" title="Процесс работы">
+                    <i class="fas fa-chart-line"></i>
+                    <span class="nav-text">Процесс</span>
+                </a>
+                <a href="#contact" title="Контакты">
+                    <i class="fas fa-envelope"></i>
+                    <span class="nav-text">Контакты</span>
+                </a>
             </div>
-            <button class="nav-toggle">
+            <button class="nav-toggle" aria-label="Меню навигации">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -100,33 +115,39 @@
         <div class="container">
             <div class="hero-content">
                 <div class="hero-badge">
-                    <span>🚀 Доступен для проектов</span>
+                    <i class="fas fa-rocket"></i>
+                    <span>Доступен для проектов</span>
                 </div>
                 <h1 class="hero-title">
                     <span class="title-line">Превращаю <span class="text-gradient">хаос данных</span></span>
                     <span class="title-line">в <span class="text-gradient">четкие инсайты</span></span>
                 </h1>
                 <p class="hero-subtitle">
+                    <i class="fas fa-chart-bar"></i>
                     Дата-ассистент | Специалист по обработке и визуализации данных
                 </p>
                 <div class="typewriter-container">
                     <span class="typewriter-text"></span>
                 </div>
                 <p class="hero-description">
+                    <i class="fas fa-clock"></i>
                     Освобождаю время бизнеса, беря на себя всю работу с данными. Вы предоставляете «сырые» данные - я возвращаю готовые инсайты для принятия решений.
                 </p>
                 <div class="hero-stats">
                     <div class="stat">
+                        <i class="fas fa-bullseye stat-icon"></i>
                         <span class="stat-number" data-count="100">0</span>
-                        <span class="stat-label">% точность</span>
+                        <span class="stat-label">точность</span>
                     </div>
                     <div class="stat">
+                        <i class="fas fa-project-diagram stat-icon"></i>
                         <span class="stat-number" data-count="50">0</span>
                         <span class="stat-label">проектов</span>
                     </div>
                     <div class="stat">
+                        <i class="fas fa-smile stat-icon"></i>
                         <span class="stat-number" data-count="99">0</span>
-                        <span class="stat-label">% довольных</span>
+                        <span class="stat-label">довольных</span>
                     </div>
                 </div>
                 <div class="hero-actions">
@@ -142,15 +163,15 @@
             </div>
             <div class="hero-visual">
                 <div class="floating-cards">
-                    <div class="card card-1">
+                    <div class="card card-1" title="Анализ данных">
                         <i class="fas fa-database"></i>
                         <span>Анализ данных</span>
                     </div>
-                    <div class="card card-2">
+                    <div class="card card-2" title="Визуализация">
                         <i class="fas fa-chart-pie"></i>
                         <span>Визуализация</span>
                     </div>
-                    <div class="card card-3">
+                    <div class="card card-3" title="Автоматизация">
                         <i class="fas fa-robot"></i>
                         <span>Автоматизация</span>
                     </div>
@@ -346,15 +367,20 @@
                 </div>
 
                 <div class="project-visualization">
-                    <h4>Визуализация результатов:</h4>
+                    <h4><i class="fas fa-images"></i> Визуализация результатов:</h4>
                     <div class="visualization-grid">
                         <div class="viz-item">
                             <div class="image-container">
                                 <img src="assets/images/График Динамика росходов и расходов по месяцам.png"
-                                     alt="Динамика доходов и расходов" class="protected-image">
+                                     alt="Динамика доходов и расходов за 8 месяцев"
+                                     class="protected-image portfolio-image"
+                                     loading="lazy">
                                 <div class="image-overlay">
-                                    <button class="zoom-btn" data-image="assets/images/График Динамика росходов и расходов по месяцам.png">
+                                    <button class="zoom-btn"
+                                            data-image="assets/images/График Динамика росходов и расходов по месяцам.png"
+                                            data-caption="Динамика доходов и расходов за 8 месяцев">
                                         <i class="fas fa-expand"></i>
+                                        Увеличить
                                     </button>
                                 </div>
                             </div>
@@ -363,10 +389,15 @@
                         <div class="viz-item">
                             <div class="image-container">
                                 <img src="assets/images/Финансовые результаты.png"
-                                     alt="Структура расходов" class="protected-image">
+                                     alt="Структура расходов по категориям"
+                                     class="protected-image portfolio-image"
+                                     loading="lazy">
                                 <div class="image-overlay">
-                                    <button class="zoom-btn" data-image="assets/images/Финансовые результаты.png">
+                                    <button class="zoom-btn"
+                                            data-image="assets/images/Финансовые результаты.png"
+                                            data-caption="Структура расходов по категориям">
                                         <i class="fas fa-expand"></i>
+                                        Увеличить
                                     </button>
                                 </div>
                             </div>
@@ -375,10 +406,15 @@
                         <div class="viz-item">
                             <div class="image-container">
                                 <img src="assets/images/Интерактивный дашборд.png"
-                                     alt="Интерактивный дашборд" class="protected-image">
+                                     alt="Интерактивный дашборд управления финансами"
+                                     class="protected-image portfolio-image"
+                                     loading="lazy">
                                 <div class="image-overlay">
-                                    <button class="zoom-btn" data-image="assets/images/Интерактивный дашборд.png">
+                                    <button class="zoom-btn"
+                                            data-image="assets/images/Интерактивный дашборд.png"
+                                            data-caption="Интерактивный дашборд управления финансами">
                                         <i class="fas fa-expand"></i>
+                                        Увеличить
                                     </button>
                                 </div>
                             </div>
@@ -387,82 +423,21 @@
                         <div class="viz-item">
                             <div class="image-container">
                                 <img src="assets/images/Показатели и Расход по приоритетам.png"
-                                     alt="Топ категорий расходов" class="protected-image">
+                                     alt="Анализ расходов по приоритетам"
+                                     class="protected-image portfolio-image"
+                                     loading="lazy">
                                 <div class="image-overlay">
-                                    <button class="zoom-btn" data-image="assets/images/Показатели и Расход по приоритетам.png">
+                                    <button class="zoom-btn"
+                                            data-image="assets/images/Показатели и Расход по приоритетам.png"
+                                            data-caption="Анализ расходов по приоритетам">
                                         <i class="fas fa-expand"></i>
+                                        Увеличить
                                     </button>
                                 </div>
                             </div>
                             <p>Анализ расходов по приоритетам</p>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="section testimonials">
-        <div class="container">
-            <div class="section-header">
-                <h2>⭐ Отзывы клиентов</h2>
-                <p>Что говорят о моей работе</p>
-            </div>
-            <div class="testimonials-slider">
-                <div class="testimonial-track">
-                    <div class="testimonial-slide">
-                        <div class="testimonial-card">
-                            <div class="testimonial-content">
-                                <p>"Roma1377 проделал фантастическую работу по очистке и анализу наших данных. Результаты превзошли ожидания!"</p>
-                            </div>
-                            <div class="testimonial-author">
-                                <div class="author-avatar">
-                                    <i class="fas fa-user"></i>
-                                </div>
-                                <div class="author-info">
-                                    <h4>Анна К.</h4>
-                                    <span>Маркетинг-директор</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-slide">
-                        <div class="testimonial-card">
-                            <div class="testimonial-content">
-                                <p>"Автоматизация отчетов сэкономила нам десятки часов в месяц. Очень профессионально и внимательно к деталям."</p>
-                            </div>
-                            <div class="testimonial-author">
-                                <div class="author-avatar">
-                                    <i class="fas fa-user"></i>
-                                </div>
-                                <div class="author-info">
-                                    <h4>Иван П.</h4>
-                                    <span>Владелец бизнеса</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-slide">
-                        <div class="testimonial-card">
-                            <div class="testimonial-content">
-                                <p>"Визуализация данных была выполнена безупречно. Теперь мы можем принимать решения на основе понятных дашбордов."</p>
-                            </div>
-                            <div class="testimonial-author">
-                                <div class="author-avatar">
-                                    <i class="fas fa-user"></i>
-                                </div>
-                                <div class="author-info">
-                                    <h4>Мария Л.</h4>
-                                    <span>Аналитик</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="slider-controls">
-                    <button class="slider-prev"><i class="fas fa-chevron-left"></i></button>
-                    <button class="slider-next"><i class="fas fa-chevron-right"></i></button>
                 </div>
             </div>
         </div>
@@ -556,7 +531,7 @@
                         <i class="fab fa-telegram"></i>
                         <div>
                             <strong>Telegram</strong>
-                            <span>@Roma1377</span>
+                            <span>@tonettes7</span>
                         </div>
                     </div>
                     <div class="contact-item">
@@ -636,9 +611,9 @@
                     <h3>Roma1377</h3>
                     <p>Дата-ассистент | Специалист по обработке и визуализации данных</p>
                     <div class="social-links">
-                        <a href="https://t.me/Roma1377" class="social-link"><i class="fab fa-telegram"></i></a>
-                        <a href="https://github.com/Roma1377" class="social-link"><i class="fab fa-github"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://t.me/tonettes7" class="social-link" title="Telegram"><i class="fab fa-telegram"></i></a>
+                        <a href="https://github.com/Roma1377" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="mailto:t.radiya7@gmail.com" class="social-link" title="Email"><i class="fas fa-envelope"></i></a>
                     </div>
                 </div>
                 <div class="footer-links">
@@ -660,7 +635,7 @@
                     <p>Подпишитесь на обновления о новых кейсах</p>
                     <form class="newsletter-form">
                         <input type="email" placeholder="Ваш email" required>
-                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                        <button type="submit" title="Подписаться"><i class="fas fa-paper-plane"></i></button>
                     </form>
                 </div>
             </div>
@@ -678,31 +653,31 @@
     <div class="modal" id="imageModal">
         <div class="modal-content">
             <span class="modal-close">&times;</span>
-            <img src="" alt="" id="modalImage">
+            <img src="" alt="" id="modalImage" class="protected-image">
             <div class="modal-caption"></div>
         </div>
     </div>
 
     <!-- Floating Action Button -->
     <div class="fab">
-        <button class="fab-button">
+        <button class="fab-button" title="Быстрые контакты">
             <i class="fas fa-comment"></i>
         </button>
         <div class="fab-options">
-            <a href="https://t.me/Roma1377" class="fab-option telegram">
+            <a href="https://t.me/tonettes7" class="fab-option telegram" title="Telegram">
                 <i class="fab fa-telegram"></i>
             </a>
-            <a href="mailto:t.radiya7@gmail.com" class="fab-option email">
+            <a href="mailto:t.radiya7@gmail.com" class="fab-option email" title="Email">
                 <i class="fas fa-envelope"></i>
             </a>
-            <a href="#contact" class="fab-option contact">
+            <a href="#contact" class="fab-option contact" title="Контактная форма">
                 <i class="fas fa-phone"></i>
             </a>
         </div>
     </div>
 
     <!-- Back to Top Button -->
-    <button class="back-to-top">
+    <button class="back-to-top" title="Наверх">
         <i class="fas fa-chevron-up"></i>
     </button>
 
