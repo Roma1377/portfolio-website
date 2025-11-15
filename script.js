@@ -121,6 +121,7 @@
         }
 
         init() {
+            this.setupIconLoader();
             this.setupPreloader();
             this.setupNavigation();
             this.setupEnhancedNavigation();
@@ -141,6 +142,80 @@
             this.setupParallax();
             this.cleanupTestimonials();
             this.setupEnhancedFeatures();
+        }
+
+        setupIconLoader() {
+            // Wait for Font Awesome to load completely
+            let attempts = 0;
+            const maxAttempts = 50;
+
+            const iconCheck = setInterval(() => {
+                attempts++;
+                const testIcon = document.createElement('i');
+                testIcon.className = 'fas fa-check';
+                testIcon.style.display = 'none';
+                document.body.appendChild(testIcon);
+
+                const computedStyle = window.getComputedStyle(testIcon, '::before');
+                const content = computedStyle.content;
+
+                document.body.removeChild(testIcon);
+
+                if (content && content !== 'none' && content !== 'normal') {
+                    clearInterval(iconCheck);
+                    this.initializeIcons();
+                } else if (attempts >= maxAttempts) {
+                    clearInterval(iconCheck);
+                    console.warn('Font Awesome icons failed to load');
+                    this.loadIconsFallback();
+                }
+            }, 100);
+        }
+
+        initializeIcons() {
+            console.log('Font Awesome icons loaded successfully');
+            // Add loaded class to body for CSS enhancements
+            document.body.classList.add('icons-loaded');
+
+            // Enhance specific icons with additional animations
+            this.enhanceHeroIcons();
+            this.enhanceServiceIcons();
+            this.enhanceNavigationIcons();
+        }
+
+        loadIconsFallback() {
+            // Fallback CDN if primary fails
+            const fallbackLink = document.createElement('link');
+            fallbackLink.rel = 'stylesheet';
+            fallbackLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css';
+            document.head.appendChild(fallbackLink);
+
+            console.log('Loading Font Awesome fallback...');
+        }
+
+        enhanceHeroIcons() {
+            // Add special effects to hero section icons
+            const heroIcons = document.querySelectorAll('#hero i');
+            heroIcons.forEach((icon, index) => {
+                icon.style.setProperty('--icon-delay', `${index * 0.1}s`);
+                icon.classList.add('hero-icon-enhanced');
+            });
+        }
+
+        enhanceServiceIcons() {
+            // Add staggered animations to service icons
+            const serviceIcons = document.querySelectorAll('.service-icon i');
+            serviceIcons.forEach((icon, index) => {
+                icon.style.animationDelay = `${index * 0.2}s`;
+            });
+        }
+
+        enhanceNavigationIcons() {
+            // Add smooth transitions to navigation icons
+            const navIcons = document.querySelectorAll('.nav-links a i');
+            navIcons.forEach(icon => {
+                icon.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+            });
         }
 
         setupPreloader() {
@@ -829,6 +904,19 @@
 
     .lazy-loaded {
         opacity: 1;
+    }
+
+    .icons-loaded .hero-icon-enhanced {
+        animation: iconGlow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes iconGlow {
+        from {
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
+        }
+        to {
+            filter: drop-shadow(0 0 15px rgba(255,255,255,0.8));
+        }
     }
     `;
     document.head.appendChild(style);

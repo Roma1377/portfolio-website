@@ -32,6 +32,30 @@
     --shadow-lg: 0 20px 60px rgba(0,0,0,0.4);
 }
 
+/* FONT AWESOME FIXES */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css');
+
+/* Force icon display and prevent conflicts */
+i[class^="fa-"],
+i[class*=" fa-"],
+.fas, .fab, .far, .fal, .fad {
+    font-family: 'Font Awesome 6 Free' !important;
+    font-weight: 900 !important;
+    display: inline-block !important;
+    font-style: normal !important;
+    font-variant: normal !important;
+    text-rendering: auto !important;
+    line-height: 1 !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+}
+
+/* Brand icons specific fix */
+.fab {
+    font-family: 'Font Awesome 6 Brands' !important;
+    font-weight: 400 !important;
+}
+
 /* Reset and Base Styles */
 * {
     margin: 0;
@@ -1696,6 +1720,219 @@ margin: 0 auto;
     background: var(--light);
 }
 
+/* ENHANCED ICON ANIMATIONS AND FIXES */
+.service-icon i,
+.stat-icon,
+.skill-name i,
+.tech-tag i,
+.contact-item i,
+.social-link i,
+.fab-button i,
+.fab-option i,
+.back-to-top i,
+.nav-links a i,
+.btn i {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    transform-origin: center !important;
+}
+
+/* Hover effects with enhanced animations */
+.nav-links a:hover i {
+    transform: scale(1.3) translateY(-2px) rotate(5deg) !important;
+    color: var(--primary) !important;
+    text-shadow: 0 5px 15px rgba(102, 126, 234, 0.4) !important;
+}
+
+.btn:hover i {
+    transform: translateX(5px) scale(1.2) !important;
+    filter: drop-shadow(0 3px 8px rgba(0,0,0,0.2)) !important;
+}
+
+.service-card:hover .service-icon i {
+    transform: scale(1.4) rotate(15deg) !important;
+    animation: iconPulse 2s infinite !important;
+    text-shadow: 0 10px 25px rgba(255,255,255,0.3) !important;
+}
+
+@keyframes iconPulse {
+    0%, 100% {
+        transform: scale(1.4) rotate(15deg) !important;
+        text-shadow: 0 10px 25px rgba(255,255,255,0.3) !important;
+    }
+    50% {
+        transform: scale(1.6) rotate(20deg) !important;
+        text-shadow: 0 15px 35px rgba(255,255,255,0.5) !important;
+    }
+}
+
+.stat:hover .stat-icon {
+    transform: scale(1.5) !important;
+    color: var(--accent) !important;
+    filter: drop-shadow(0 5px 15px rgba(240, 147, 251, 0.6)) !important;
+}
+
+.skill-item:hover .skill-name i {
+    transform: scale(1.3) rotate(-5deg) !important;
+    color: var(--primary) !important;
+}
+
+.tech-tag:hover i {
+    transform: scale(1.3) rotate(10deg) !important;
+    color: var(--secondary) !important;
+}
+
+.contact-item:hover i {
+    transform: scale(1.2) rotate(8deg) !important;
+    background: var(--gradient-accent) !important;
+    box-shadow: 0 8px 25px rgba(240, 147, 251, 0.4) !important;
+}
+
+.social-link:hover i {
+    transform: scale(1.4) translateY(-4px) rotate(12deg) !important;
+    filter: drop-shadow(0 8px 20px rgba(255,255,255,0.3)) !important;
+}
+
+.fab-button:hover i {
+    transform: scale(1.3) rotate(20deg) !important;
+    animation: fabPulse 1.5s infinite !important;
+}
+
+@keyframes fabPulse {
+    0%, 100% { transform: scale(1.3) rotate(20deg); }
+    50% { transform: scale(1.5) rotate(25deg); }
+}
+
+.fab-option:hover i {
+    transform: scale(1.5) rotate(15deg) !important;
+    filter: drop-shadow(0 5px 15px rgba(255,255,255,0.4)) !important;
+}
+
+.back-to-top:hover i {
+    transform: translateY(-5px) scale(1.2) !important;
+}
+
+/* Floating cards special effects */
+.floating-cards .card:hover i {
+    transform: scale(1.5) rotate(15deg) !important;
+    animation: floatIcon 3s ease-in-out infinite !important;
+    text-shadow: 0 10px 25px rgba(255,255,255,0.4) !important;
+}
+
+@keyframes floatIcon {
+    0%, 100% {
+        transform: translateY(0) rotate(15deg) scale(1.5) !important;
+    }
+    50% {
+        transform: translateY(-15px) rotate(25deg) scale(1.7) !important;
+    }
+}
+
+/* Process steps enhanced animations */
+.process-step:hover .step-number i {
+    transform: scale(1.3) rotate(20deg) !important;
+    animation: processBounce 1s ease-in-out !important;
+}
+
+@keyframes processBounce {
+    0%, 20%, 60%, 100% {
+        transform: translateY(0) scale(1.3) rotate(20deg) !important;
+    }
+    40% {
+        transform: translateY(-12px) scale(1.5) rotate(25deg) !important;
+    }
+    80% {
+        transform: translateY(-6px) scale(1.4) rotate(22deg) !important;
+    }
+}
+
+/* Hero section icons enhancement */
+.hero-badge i {
+    animation: badgeSpin 4s linear infinite !important;
+}
+
+@keyframes badgeSpin {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.1); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+.hero-subtitle i,
+.hero-description i {
+    transition: all 0.3s ease !important;
+}
+
+.hero-subtitle:hover i,
+.hero-description:hover i {
+    transform: scale(1.3) !important;
+    color: var(--accent) !important;
+}
+
+/* Project showcase icons */
+.project-badge:hover i {
+    transform: scale(1.2) rotate(-10deg) !important;
+    animation: chartGrow 2s infinite !important;
+}
+
+@keyframes chartGrow {
+    0%, 100% { transform: scale(1.2) rotate(-10deg); }
+    50% { transform: scale(1.4) rotate(-15deg); }
+}
+
+.project-tasks li i {
+    transition: all 0.3s ease !important;
+}
+
+.project-tasks li:hover i {
+    transform: scale(1.3) rotate(15deg) !important;
+    color: var(--success) !important;
+    filter: drop-shadow(0 3px 8px rgba(76, 175, 80, 0.4)) !important;
+}
+
+/* Footer icons enhancement */
+.footer-links a:hover i,
+.footer-services a:hover i {
+    transform: translateX(8px) scale(1.2) !important;
+    color: var(--primary) !important;
+}
+
+.newsletter-form button:hover i {
+    transform: translateX(3px) scale(1.2) !important;
+    animation: sendFly 1s infinite !important;
+}
+
+@keyframes sendFly {
+    0%, 100% { transform: translateX(3px) scale(1.2); }
+    50% { transform: translateX(6px) scale(1.3); }
+}
+
+/* Security badge icon animation */
+.security-badge i {
+    animation: shieldPulse 3s infinite !important;
+}
+
+@keyframes shieldPulse {
+    0%, 100% {
+        transform: scale(1);
+        color: var(--primary);
+    }
+    50% {
+        transform: scale(1.1);
+        color: var(--accent);
+    }
+}
+
+/* Modal close button enhancement */
+.modal-close:hover {
+    transform: scale(1.2) rotate(90deg) !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    color: var(--primary) !important;
+}
+
+/* Ensure all icons are properly displayed in dark theme */
+[data-theme="dark"] i {
+    color: inherit !important;
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
     .hero .container {
@@ -1810,6 +2047,20 @@ margin: 0 auto;
     .portfolio-image {
         height: 200px;
     }
+
+    /* Mobile optimizations for icon animations */
+    .nav-links a i,
+    .btn i,
+    .service-icon i {
+        transition: none;
+    }
+
+    .nav-links a:hover i,
+    .btn:hover i,
+    .service-card:hover .service-icon i {
+        transform: none;
+        animation: none;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1864,248 +2115,12 @@ margin: 0 auto;
     .theme-toggle {
         display: none !important;
     }
-}
 
-
-/* Enhanced Icon Animations */
-.nav-links a i,
-.btn i,
-.service-icon i,
-.stat-icon,
-.skill-name i,
-.tech-tag i,
-.contact-item i,
-.social-link i,
-.fab-button i,
-.fab-option i,
-.back-to-top i {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Hover effects for navigation icons */
-.nav-links a:hover i {
-    transform: scale(1.2) translateY(-2px);
-    color: var(--primary);
-}
-
-/* Button icon animations */
-.btn:hover i {
-    transform: translateX(3px) scale(1.1);
-}
-
-/* Service card icon animations */
-.service-card:hover .service-icon i {
-    transform: scale(1.2) rotate(10deg);
-    animation: pulse 2s infinite;
-}
-
-/* Stats icon animations */
-.stat:hover .stat-icon {
-    transform: scale(1.3);
-    color: var(--accent);
-}
-
-/* Skill icons */
-.skill-item:hover .skill-name i {
-    transform: scale(1.2);
-    color: var(--primary);
-}
-
-/* Tech tag icons */
-.tech-tag:hover i {
-    transform: scale(1.2) rotate(5deg);
-}
-
-/* Contact item icons */
-.contact-item:hover i {
-    transform: scale(1.1) rotate(5deg);
-    background: var(--gradient-accent);
-}
-
-/* Social link animations */
-.social-link:hover i {
-    transform: scale(1.3) translateY(-3px);
-}
-
-/* Floating action button animations */
-.fab-button:hover i {
-    transform: scale(1.2) rotate(15deg);
-}
-
-.fab-option:hover i {
-    transform: scale(1.3) rotate(10deg);
-}
-
-/* Back to top button animation */
-.back-to-top:hover i {
-    transform: translateY(-3px);
-}
-
-/* Pulse animation for important icons */
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.1);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-/* Floating cards icon animations */
-.floating-cards .card:hover i {
-    transform: scale(1.3) rotate(10deg);
-    animation: floatIcon 3s ease-in-out infinite;
-}
-
-@keyframes floatIcon {
-    0%, 100% {
-        transform: translateY(0) rotate(10deg) scale(1.3);
-    }
-    50% {
-        transform: translateY(-10px) rotate(15deg) scale(1.4);
-    }
-}
-
-/* Process step icon animations */
-.process-step:hover .step-number i {
-    transform: scale(1.2) rotate(15deg);
-    animation: bounce 1s ease-in-out;
-}
-
-@keyframes bounce {
-    0%, 20%, 60%, 100% {
-        transform: translateY(0) scale(1.2) rotate(15deg);
-    }
-    40% {
-        transform: translateY(-10px) scale(1.3) rotate(20deg);
-    }
-    80% {
-        transform: translateY(-5px) scale(1.25) rotate(17deg);
-    }
-}
-
-/* Enhanced tooltips for icons */
-.nav-links a,
-.btn,
-.social-link,
-.fab-button,
-.fab-option,
-.back-to-top {
-    position: relative;
-}
-
-/* Loading animation for preloader icon */
-.loader-circle {
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* Typewriter cursor animation */
-.typewriter-text {
-    animation: blink 1s infinite;
-}
-
-@keyframes blink {
-    0%, 100% { border-color: rgba(255, 255, 255, 0.7); }
-    50% { border-color: transparent; }
-}
-
-/* Scroll indicator animation */
-.scroll-line {
-    animation: scrollLine 2s infinite;
-}
-
-@keyframes scrollLine {
-    0%, 100% { transform: translateY(0); opacity: 1; }
-    50% { transform: translateY(10px); opacity: 0.5; }
-}
-
-/* Enhanced hover states for all interactive elements */
-.nav-links a:hover,
-.btn:hover,
-.service-card:hover,
-.social-link:hover,
-.fab-option:hover,
-.contact-item:hover,
-.tech-tag:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
-}
-
-/* Specific animations for service icons */
-.service-icon {
-    position: relative;
-    overflow: hidden;
-}
-
-.service-icon::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    transition: left 0.5s;
-}
-
-.service-card:hover .service-icon::before {
-    left: 100%;
-}
-
-/* Enhanced focus states for accessibility */
-.nav-links a:focus i,
-.btn:focus i,
-.social-link:focus i {
-    transform: scale(1.2);
-    outline: 2px solid var(--primary);
-    outline-offset: 2px;
-}
-
-/* Dark theme adjustments for icons */
-[data-theme="dark"] .nav-links a:hover i {
-    color: var(--accent);
-}
-
-[data-theme="dark"] .service-card:hover .service-icon i {
-    color: var(--accent);
-}
-
-/* Mobile optimizations for icon animations */
-@media (max-width: 768px) {
-    .nav-links a i,
-    .btn i,
-    .service-icon i {
-        transition: none;
-    }
-
-    .nav-links a:hover i,
-    .btn:hover i,
-    .service-card:hover .service-icon i {
-        transform: none;
-        animation: none;
-    }
-}
-
-/* Print styles - remove animations */
-@media print {
-    .nav-links a i,
-    .btn i,
-    .service-icon i,
-    .stat-icon,
-    .skill-name i,
-    .tech-tag i,
-    .contact-item i,
-    .social-link i {
-        transition: none !important;
-        transform: none !important;
-        animation: none !important;
+    i[class^="fa-"],
+    i[class*=" fa-"],
+    .fas, .fab, .far, .fal, .fad {
+        color: black !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
     }
 }
