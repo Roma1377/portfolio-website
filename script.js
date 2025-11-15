@@ -140,6 +140,7 @@
             this.setupConsoleGreeting();
             this.setupParallax();
             this.cleanupTestimonials();
+            this.setupEnhancedFeatures();
         }
 
         setupPreloader() {
@@ -219,10 +220,10 @@
             const updateThemeUI = (theme) => {
                 if (theme === 'dark') {
                     themeIcon.classList.replace('fa-moon', 'fa-sun');
-                    themeText.textContent = 'Светлая';
+                    themeText.textContent = 'Светлая тема';
                 } else {
                     themeIcon.classList.replace('fa-sun', 'fa-moon');
-                    themeText.textContent = 'Тёмная';
+                    themeText.textContent = 'Тёмная тема';
                 }
             };
 
@@ -671,7 +672,7 @@
         updateCopyright() {
             const copyrightElement = document.querySelector('.copyright');
             if (copyrightElement) {
-                copyrightElement.textContent = `© ${new Date().getFullYear()} Roma1377. Все права защищены.`;
+                copyrightElement.textContent = `© ${new Date().getFullYear()} Радия Торшхоева. Все права защищены.`;
             }
         }
 
@@ -683,9 +684,74 @@
             }
         }
 
+        setupEnhancedFeatures() {
+            // Дополнительные улучшения
+            this.setupSmoothScrolling();
+            this.setupLazyLoading();
+            this.setupEnhancedTooltips();
+        }
+
+        setupSmoothScrolling() {
+            // Плавная прокрутка для всех внутренних ссылок
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        setupLazyLoading() {
+            // Ленивая загрузка изображений
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            img.src = img.dataset.src;
+                            img.classList.remove('lazy');
+                            imageObserver.unobserve(img);
+                        }
+                    });
+                });
+
+                document.querySelectorAll('img[data-src]').forEach(img => {
+                    imageObserver.observe(img);
+                });
+            }
+        }
+
+        setupEnhancedTooltips() {
+            // Улучшенные подсказки для всех элементов с title
+            document.querySelectorAll('[title]').forEach(element => {
+                element.addEventListener('mouseenter', (e) => {
+                    const tooltip = document.createElement('div');
+                    tooltip.className = 'enhanced-tooltip';
+                    tooltip.textContent = element.getAttribute('title');
+                    document.body.appendChild(tooltip);
+
+                    const rect = element.getBoundingClientRect();
+                    tooltip.style.left = rect.left + (rect.width / 2) + 'px';
+                    tooltip.style.top = (rect.top - tooltip.offsetHeight - 10) + 'px';
+
+                    element.addEventListener('mouseleave', () => {
+                        if (document.body.contains(tooltip)) {
+                            document.body.removeChild(tooltip);
+                        }
+                    }, { once: true });
+                });
+            });
+        }
+
         setupConsoleGreeting() {
             console.log(
-                `%c🔒 УЛУЧШЕННОЕ ЗАЩИЩЕННОЕ ПОРТФОЛИО ROMA1377\n%c💼 Дата-ассистент | Специалист по анализу данных\n%c📊 Превращаю хаос данных в четкие инсайты\n\n⚡ Защита: Улучшенная система безопасности\n🎯 Навыки: Очистка, анализ, визуализация данных\n🚀 Готова к проектам: t.radiya7@gmail.com\n📱 Telegram: @tonettes7`,
+                `%c🔒 УЛУЧШЕННОЕ ЗАЩИЩЕННОЕ ПОРТФОЛИО РАДИЯ ТОРШХОЕВА\n%c💼 Дата-ассистент | Специалист по анализу данных\n%c📊 Превращаю хаос данных в четкие инсайты\n\n⚡ Защита: Улучшенная система безопасности\n🎯 Навыки: Очистка, анализ, визуализация данных\n🚀 Готова к проектам: t.radiya7@gmail.com\n📱 Telegram: @tonettes7`,
                 'color: #667eea; font-size: 18px; font-weight: bold;',
                 'color: #764ba2; font-size: 14px; font-weight: 600;',
                 'color: #333; font-size: 12px;'
@@ -698,7 +764,7 @@
         new PortfolioApp();
     });
 
-    // Add CSS for animations
+    // Add CSS for animations and enhanced features
     const style = document.createElement('style');
     style.textContent = `
     .animate-on-scroll {
@@ -729,6 +795,40 @@
             opacity: 1;
             transform: translateY(0);
         }
+    }
+
+    .enhanced-tooltip {
+        position: fixed;
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        z-index: 10000;
+        pointer-events: none;
+        transform: translateX(-50%);
+        white-space: nowrap;
+        animation: tooltipFadeIn 0.2s ease;
+    }
+
+    @keyframes tooltipFadeIn {
+        from {
+            opacity: 0;
+            transform: translateX(-50%) translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+    }
+
+    .lazy {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .lazy-loaded {
+        opacity: 1;
     }
     `;
     document.head.appendChild(style);

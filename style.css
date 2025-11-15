@@ -92,7 +92,7 @@ p, li, h1, h2, h3, h4, h5, h6, .allow-select {
     white-space: nowrap;
 }
 
-/* Enhanced Security Watermark */
+/* Enhanced Security Watermark - УБРАНЫ ДИАГОНАЛЬНЫЕ ЛИНИИ */
 .watermark {
     position: fixed;
     top: 0;
@@ -101,14 +101,7 @@ p, li, h1, h2, h3, h4, h5, h6, .allow-select {
     height: 100%;
     pointer-events: none;
     z-index: 9999;
-    opacity: 0.02;
-    background: repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 10px,
-        var(--primary) 10px,
-                                          var(--primary) 20px
-    );
+    opacity: 0.008;
 }
 
 .watermark::after {
@@ -119,14 +112,14 @@ p, li, h1, h2, h3, h4, h5, h6, .allow-select {
     transform: translate(-50%, -50%) rotate(-45deg);
     font-size: 4rem;
     color: var(--primary);
-    opacity: 0.03;
+    opacity: 0.02;
     white-space: nowrap;
     font-weight: 800;
     pointer-events: none;
     font-family: 'Inter', sans-serif;
 }
 
-/* Light theme watermark adjustment */
+/* Light theme watermark adjustment - УБРАНЫ ЛИНИИ */
 [data-theme="light"] .watermark::after {
     opacity: 0.008;
     color: #f0f0f0;
@@ -580,6 +573,10 @@ p, li, h1, h2, h3, h4, h5, h6, .allow-select {
     font-weight: 700;
     margin-bottom: 1rem;
     color: var(--dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
 }
 
 .section-header p {
@@ -637,6 +634,9 @@ p, li, h1, h2, h3, h4, h5, h6, .allow-select {
 .skill-name {
     font-weight: 600;
     color: var(--dark);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .skill-level {
@@ -678,6 +678,7 @@ p, li, h1, h2, h3, h4, h5, h6, .allow-select {
     color: white;
     text-align: center;
     padding: 2rem;
+    position: relative;
 }
 
 .image-placeholder i {
@@ -689,6 +690,13 @@ p, li, h1, h2, h3, h4, h5, h6, .allow-select {
 .image-placeholder p {
     font-weight: 600;
     font-size: 1.1rem;
+}
+
+.name-signature {
+    margin-top: 1rem;
+    font-style: italic;
+    opacity: 0.8;
+    font-size: 1rem !important;
 }
 
 /* Services Section */
@@ -755,14 +763,13 @@ p, li, h1, h2, h3, h4, h5, h6, .allow-select {
     color: var(--gray);
     position: relative;
     padding-left: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
-.service-features li::before {
-    content: '✓';
-    position: absolute;
-    left: 0;
+.service-features li i {
     color: var(--success);
-    font-weight: bold;
 }
 
 /* Enhanced Portfolio Section */
@@ -784,7 +791,9 @@ p, li, h1, h2, h3, h4, h5, h6, .allow-select {
 }
 
 .project-badge {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
     background: var(--gradient);
     color: white;
     padding: 0.5rem 1rem;
@@ -843,6 +852,9 @@ p, li, h1, h2, h3, h4, h5, h6, .allow-select {
     font-size: 1.2rem;
     margin-bottom: 1rem;
     color: var(--dark);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .project-tasks ul {
@@ -855,6 +867,13 @@ p, li, h1, h2, h3, h4, h5, h6, .allow-select {
     padding: 0.5rem 0;
     color: var(--gray);
     break-inside: avoid;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.project-tasks li i {
+    color: var(--success);
 }
 
 .project-technologies {
@@ -865,6 +884,9 @@ p, li, h1, h2, h3, h4, h5, h6, .allow-select {
     font-size: 1.2rem;
     margin-bottom: 1rem;
     color: var(--dark);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .tech-tags {
@@ -881,6 +903,9 @@ p, li, h1, h2, h3, h4, h5, h6, .allow-select {
     font-size: 0.9rem;
     font-weight: 500;
     border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .project-visualization {
@@ -983,9 +1008,13 @@ p, li, h1, h2, h3, h4, h5, h6, .allow-select {
     font-weight: 500;
     color: var(--dark);
     margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
 }
 
-/* Process Section */
+/* Enhanced Process Section */
 .process {
     background: var(--lighter);
 }
@@ -1075,7 +1104,7 @@ p, li, h1, h2, h3, h4, h5, h6, .allow-select {
     flex-wrap: wrap;
 }
 
-/* Contact Section */
+/* Enhanced Contact Section */
 .contact {
     background: var(--lighter);
 }
@@ -1150,6 +1179,16 @@ p, li, h1, h2, h3, h4, h5, h6, .allow-select {
 .contact-hours h4 {
     margin-bottom: 1rem;
     color: var(--dark);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.contact-hours p {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .map-container {
@@ -1176,6 +1215,13 @@ width: 100%;
     text-align: center;
 }
 
+.map-overlay p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
 .contact-form {
     background: var(--lighter);
     padding: 2.5rem;
@@ -1194,6 +1240,9 @@ width: 100%;
     margin-bottom: 0.5rem;
     font-weight: 600;
     color: var(--dark);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .form-group input,
@@ -1342,7 +1391,7 @@ margin: 0 auto;
     font-weight: 500;
 }
 
-/* Footer */
+/* Enhanced Footer */
 .footer {
     background: var(--darker);
     color: white;
@@ -1404,7 +1453,9 @@ margin: 0 auto;
 
 .footer-links a,
 .footer-services a {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     color: rgba(255, 255, 255, 0.7);
     text-decoration: none;
     margin-bottom: 0.75rem;
