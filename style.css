@@ -32,30 +32,6 @@
     --shadow-lg: 0 20px 60px rgba(0,0,0,0.4);
 }
 
-/* FONT AWESOME FIXES */
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css');
-
-/* Force icon display and prevent conflicts */
-i[class^="fa-"],
-i[class*=" fa-"],
-.fas, .fab, .far, .fal, .fad {
-    font-family: 'Font Awesome 6 Free' !important;
-    font-weight: 900 !important;
-    display: inline-block !important;
-    font-style: normal !important;
-    font-variant: normal !important;
-    text-rendering: auto !important;
-    line-height: 1 !important;
-    -webkit-font-smoothing: antialiased !important;
-    -moz-osx-font-smoothing: grayscale !important;
-}
-
-/* Brand icons specific fix */
-.fab {
-    font-family: 'Font Awesome 6 Brands' !important;
-    font-weight: 400 !important;
-}
-
 /* Reset and Base Styles */
 * {
     margin: 0;
@@ -116,7 +92,7 @@ p, li, h1, h2, h3, h4, h5, h6, .allow-select {
     white-space: nowrap;
 }
 
-/* Enhanced Security Watermark - УБРАНЫ ДИАГОНАЛЬНЫЕ ЛИНИИ */
+/* Enhanced Security Watermark */
 .watermark {
     position: fixed;
     top: 0;
@@ -134,16 +110,17 @@ p, li, h1, h2, h3, h4, h5, h6, .allow-select {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(-45deg);
-    font-size: 4rem;
+    font-size: 5rem;
     color: var(--primary);
-    opacity: 0.02;
+    opacity: 0.015;
     white-space: nowrap;
-    font-weight: 800;
+    font-weight: 900;
     pointer-events: none;
     font-family: 'Inter', sans-serif;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
 }
 
-/* Light theme watermark adjustment - УБРАНЫ ЛИНИИ */
+/* Light theme watermark adjustment */
 [data-theme="light"] .watermark::after {
     opacity: 0.008;
     color: #f0f0f0;
@@ -313,6 +290,7 @@ p, li, h1, h2, h3, h4, h5, h6, .allow-select {
 
 .nav-links a i {
     font-size: 0.9rem;
+    transition: var(--transition);
 }
 
 .nav-text {
@@ -445,6 +423,7 @@ p, li, h1, h2, h3, h4, h5, h6, .allow-select {
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
     opacity: 0.9;
+    transition: var(--transition);
 }
 
 .stat-number {
@@ -543,6 +522,7 @@ p, li, h1, h2, h3, h4, h5, h6, .allow-select {
 .floating-cards .card i {
     font-size: 2rem;
     opacity: 0.9;
+    transition: var(--transition);
 }
 
 .floating-cards .card span {
@@ -635,6 +615,7 @@ p, li, h1, h2, h3, h4, h5, h6, .allow-select {
     color: var(--gray);
 }
 
+/* Simplified Skills Grid */
 .skills-grid {
     display: flex;
     flex-direction: column;
@@ -642,10 +623,17 @@ p, li, h1, h2, h3, h4, h5, h6, .allow-select {
 }
 
 .skill-item {
-    background: var(--light);
+    background: var(--lighter);
     padding: 1.5rem;
     border-radius: var(--border-radius);
     border-left: 4px solid var(--primary);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.skill-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
 }
 
 .skill-header {
@@ -661,6 +649,10 @@ p, li, h1, h2, h3, h4, h5, h6, .allow-select {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+}
+
+.skill-name i {
+    transition: var(--transition);
 }
 
 .skill-level {
@@ -763,6 +755,7 @@ p, li, h1, h2, h3, h4, h5, h6, .allow-select {
 .service-icon i {
     font-size: 2rem;
     color: white;
+    transition: var(--transition);
 }
 
 .service-card h3 {
@@ -932,6 +925,31 @@ p, li, h1, h2, h3, h4, h5, h6, .allow-select {
     gap: 0.5rem;
 }
 
+.tech-tag i {
+    transition: var(--transition);
+}
+
+/* Project Download Section */
+.project-download {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    text-align: center;
+}
+
+.project-download .btn {
+    padding: 1.2rem 2.5rem;
+    font-size: 1.1rem;
+    background: var(--success);
+    color: white;
+}
+
+.project-download .btn:hover {
+    background: #45a049;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(76, 175, 80, 0.3);
+}
+
 .project-visualization {
     padding: 3rem;
     background: var(--light);
@@ -950,7 +968,7 @@ p, li, h1, h2, h3, h4, h5, h6, .allow-select {
 
 .visualization-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
 }
 
@@ -1185,6 +1203,7 @@ p, li, h1, h2, h3, h4, h5, h6, .allow-select {
     justify-content: center;
     color: white;
     font-size: 1.2rem;
+    transition: var(--transition);
 }
 
 .contact-item div {
@@ -1224,28 +1243,32 @@ p, li, h1, h2, h3, h4, h5, h6, .allow-select {
     margin-bottom: 0.5rem;
 }
 
+/* Enhanced Map Container */
 .map-container {
     margin-top: 2rem;
     position: relative;
     border-radius: var(--border-radius);
     overflow: hidden;
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow-lg);
+    border: 2px solid var(--border);
 }
 
 #map {
-height: 300px;
+height: 350px;
 width: 100%;
+background: var(--light);
 }
 
 .map-overlay {
     position: absolute;
-    bottom: 0;
+    top: 0;
     left: 0;
     right: 0;
-    background: rgba(0, 0, 0, 0.7);
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9));
     color: white;
     padding: 1rem;
     text-align: center;
+    z-index: 1000;
 }
 
 .map-overlay p {
@@ -1253,6 +1276,8 @@ width: 100%;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
+    font-weight: 600;
+    margin: 0;
 }
 
 .contact-form {
@@ -1459,8 +1484,8 @@ margin: 0 auto;
 }
 
 .social-link {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 50%;
     display: flex;
@@ -1469,11 +1494,19 @@ margin: 0 auto;
     color: white;
     text-decoration: none;
     transition: var(--transition);
+    position: relative;
+    overflow: hidden;
 }
 
 .social-link:hover {
     background: var(--primary);
-    transform: translateY(-3px);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+}
+
+.social-link i {
+    transition: var(--transition);
+    font-size: 1.3rem;
 }
 
 .footer-links h4,
@@ -1560,8 +1593,8 @@ margin: 0 auto;
     font-size: 0.9rem;
 }
 
-/* Floating Action Button */
-.fab {
+/* Fixed FAB System */
+.fab-container {
     position: fixed;
     bottom: 2rem;
     right: 2rem;
@@ -1575,18 +1608,14 @@ margin: 0 auto;
     border: none;
     border-radius: 50%;
     color: white;
-    font-size: 1.2rem;
     cursor: pointer;
     box-shadow: var(--shadow-lg);
-    transition: var(--transition);
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.fab-button:hover {
-    transform: scale(1.1);
-    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+    z-index: 1001;
+    font-size: 1.3rem;
+    transition: var(--transition);
 }
 
 .fab-options {
@@ -1595,11 +1624,12 @@ margin: 0 auto;
     right: 0;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.8rem;
     opacity: 0;
     visibility: hidden;
     transform: translateY(20px);
-    transition: var(--transition);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1002;
 }
 
 .fab-options.active {
@@ -1619,14 +1649,17 @@ margin: 0 auto;
     text-decoration: none;
     box-shadow: var(--shadow);
     transition: var(--transition);
+    font-size: 1.2rem;
 }
 
 .fab-option.telegram { background: #0088cc; }
 .fab-option.email { background: #ea4335; }
 .fab-option.contact { background: var(--primary); }
 
+.fab-button:hover,
 .fab-option:hover {
-    transform: scale(1.1) translateX(-5px);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 
 /* Back to Top Button */
@@ -1720,217 +1753,57 @@ margin: 0 auto;
     background: var(--light);
 }
 
-/* ENHANCED ICON ANIMATIONS AND FIXES */
-.service-icon i,
-.stat-icon,
-.skill-name i,
-.tech-tag i,
-.contact-item i,
-.social-link i,
-.fab-button i,
-.fab-option i,
-.back-to-top i,
-.nav-links a i,
-.btn i {
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    transform-origin: center !important;
+/* Enhanced protection for portfolio */
+.protected-content {
+    position: relative;
 }
 
-/* Hover effects with enhanced animations */
-.nav-links a:hover i {
-    transform: scale(1.3) translateY(-2px) rotate(5deg) !important;
-    color: var(--primary) !important;
-    text-shadow: 0 5px 15px rgba(102, 126, 234, 0.4) !important;
+.protected-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: transparent;
+    z-index: 1;
+    pointer-events: none;
 }
 
-.btn:hover i {
-    transform: translateX(5px) scale(1.2) !important;
-    filter: drop-shadow(0 3px 8px rgba(0,0,0,0.2)) !important;
+/* Fixed Icon System */
+.fas, .fab, .far {
+    font-family: 'Font Awesome 6 Free' !important;
+    font-weight: 900 !important;
 }
 
-.service-card:hover .service-icon i {
-    transform: scale(1.4) rotate(15deg) !important;
-    animation: iconPulse 2s infinite !important;
-    text-shadow: 0 10px 25px rgba(255,255,255,0.3) !important;
+.fab {
+    font-family: 'Font Awesome 6 Brands' !important;
+    font-weight: 400 !important;
 }
 
-@keyframes iconPulse {
-    0%, 100% {
-        transform: scale(1.4) rotate(15deg) !important;
-        text-shadow: 0 10px 25px rgba(255,255,255,0.3) !important;
-    }
-    50% {
-        transform: scale(1.6) rotate(20deg) !important;
-        text-shadow: 0 15px 35px rgba(255,255,255,0.5) !important;
-    }
-}
-
-.stat:hover .stat-icon {
-    transform: scale(1.5) !important;
-    color: var(--accent) !important;
-    filter: drop-shadow(0 5px 15px rgba(240, 147, 251, 0.6)) !important;
-}
-
-.skill-item:hover .skill-name i {
-    transform: scale(1.3) rotate(-5deg) !important;
-    color: var(--primary) !important;
-}
-
+/* Simple hover effects for all icons */
+.nav-links a:hover i,
+.btn:hover i,
+.social-link:hover i,
+.fab-option:hover i,
+.contact-item:hover i,
+.service-card:hover .service-icon i,
+.skill-item:hover .skill-name i,
 .tech-tag:hover i {
-    transform: scale(1.3) rotate(10deg) !important;
-    color: var(--secondary) !important;
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
 }
 
-.contact-item:hover i {
-    transform: scale(1.2) rotate(8deg) !important;
-    background: var(--gradient-accent) !important;
-    box-shadow: 0 8px 25px rgba(240, 147, 251, 0.4) !important;
+/* Theme toggle icon animation */
+.theme-toggle:hover .theme-icon {
+    transform: rotate(20deg) scale(1.1);
 }
 
-.social-link:hover i {
-    transform: scale(1.4) translateY(-4px) rotate(12deg) !important;
-    filter: drop-shadow(0 8px 20px rgba(255,255,255,0.3)) !important;
-}
-
-.fab-button:hover i {
-    transform: scale(1.3) rotate(20deg) !important;
-    animation: fabPulse 1.5s infinite !important;
-}
-
-@keyframes fabPulse {
-    0%, 100% { transform: scale(1.3) rotate(20deg); }
-    50% { transform: scale(1.5) rotate(25deg); }
-}
-
-.fab-option:hover i {
-    transform: scale(1.5) rotate(15deg) !important;
-    filter: drop-shadow(0 5px 15px rgba(255,255,255,0.4)) !important;
-}
-
-.back-to-top:hover i {
-    transform: translateY(-5px) scale(1.2) !important;
-}
-
-/* Floating cards special effects */
-.floating-cards .card:hover i {
-    transform: scale(1.5) rotate(15deg) !important;
-    animation: floatIcon 3s ease-in-out infinite !important;
-    text-shadow: 0 10px 25px rgba(255,255,255,0.4) !important;
-}
-
-@keyframes floatIcon {
-    0%, 100% {
-        transform: translateY(0) rotate(15deg) scale(1.5) !important;
-    }
-    50% {
-        transform: translateY(-15px) rotate(25deg) scale(1.7) !important;
-    }
-}
-
-/* Process steps enhanced animations */
-.process-step:hover .step-number i {
-    transform: scale(1.3) rotate(20deg) !important;
-    animation: processBounce 1s ease-in-out !important;
-}
-
-@keyframes processBounce {
-    0%, 20%, 60%, 100% {
-        transform: translateY(0) scale(1.3) rotate(20deg) !important;
-    }
-    40% {
-        transform: translateY(-12px) scale(1.5) rotate(25deg) !important;
-    }
-    80% {
-        transform: translateY(-6px) scale(1.4) rotate(22deg) !important;
-    }
-}
-
-/* Hero section icons enhancement */
-.hero-badge i {
-    animation: badgeSpin 4s linear infinite !important;
-}
-
-@keyframes badgeSpin {
-    0% { transform: rotate(0deg) scale(1); }
-    50% { transform: rotate(180deg) scale(1.1); }
-    100% { transform: rotate(360deg) scale(1); }
-}
-
-.hero-subtitle i,
-.hero-description i {
-    transition: all 0.3s ease !important;
-}
-
-.hero-subtitle:hover i,
-.hero-description:hover i {
-    transform: scale(1.3) !important;
-    color: var(--accent) !important;
-}
-
-/* Project showcase icons */
-.project-badge:hover i {
-    transform: scale(1.2) rotate(-10deg) !important;
-    animation: chartGrow 2s infinite !important;
-}
-
-@keyframes chartGrow {
-    0%, 100% { transform: scale(1.2) rotate(-10deg); }
-    50% { transform: scale(1.4) rotate(-15deg); }
-}
-
-.project-tasks li i {
-    transition: all 0.3s ease !important;
-}
-
-.project-tasks li:hover i {
-    transform: scale(1.3) rotate(15deg) !important;
-    color: var(--success) !important;
-    filter: drop-shadow(0 3px 8px rgba(76, 175, 80, 0.4)) !important;
-}
-
-/* Footer icons enhancement */
-.footer-links a:hover i,
-.footer-services a:hover i {
-    transform: translateX(8px) scale(1.2) !important;
-    color: var(--primary) !important;
-}
-
-.newsletter-form button:hover i {
-    transform: translateX(3px) scale(1.2) !important;
-    animation: sendFly 1s infinite !important;
-}
-
-@keyframes sendFly {
-    0%, 100% { transform: translateX(3px) scale(1.2); }
-    50% { transform: translateX(6px) scale(1.3); }
-}
-
-/* Security badge icon animation */
-.security-badge i {
-    animation: shieldPulse 3s infinite !important;
-}
-
-@keyframes shieldPulse {
-    0%, 100% {
-        transform: scale(1);
-        color: var(--primary);
-    }
-    50% {
-        transform: scale(1.1);
-        color: var(--accent);
-    }
-}
-
-/* Modal close button enhancement */
-.modal-close:hover {
-    transform: scale(1.2) rotate(90deg) !important;
-    background: rgba(255, 255, 255, 0.9) !important;
-    color: var(--primary) !important;
-}
-
-/* Ensure all icons are properly displayed in dark theme */
-[data-theme="dark"] i {
-    color: inherit !important;
+/* Ensure all icons are visible */
+i[class*="fa-"] {
+    display: inline-block !important;
+    font-style: normal !important;
+    line-height: 1 !important;
 }
 
 /* Responsive Design */
@@ -1958,6 +1831,10 @@ margin: 0 auto;
     .footer-content {
         grid-template-columns: 1fr 1fr;
         gap: 2rem;
+    }
+
+    .visualization-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
 }
 
@@ -2048,18 +1925,29 @@ margin: 0 auto;
         height: 200px;
     }
 
-    /* Mobile optimizations for icon animations */
-    .nav-links a i,
-    .btn i,
-    .service-icon i {
-        transition: none;
+    .fab-container {
+        bottom: 1rem;
+        right: 1rem;
     }
 
-    .nav-links a:hover i,
-    .btn:hover i,
-    .service-card:hover .service-icon i {
-        transform: none;
-        animation: none;
+    .back-to-top {
+        bottom: 1rem;
+        left: 1rem;
+    }
+
+    .nav-links a i {
+        font-size: 1.2rem !important;
+        margin-right: 0.5rem;
+    }
+
+    .skill-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .skill-level {
+        align-self: flex-start;
     }
 }
 
@@ -2097,6 +1985,10 @@ margin: 0 auto;
         font-size: 0.8rem;
         padding: 0.5rem 1rem;
     }
+
+    .social-links {
+        justify-content: center;
+    }
 }
 
 /* Utility Classes */
@@ -2109,18 +2001,10 @@ margin: 0 auto;
 /* Print Styles */
 @media print {
     .floating-nav,
-    .fab,
+    .fab-container,
     .back-to-top,
     .watermark,
     .theme-toggle {
         display: none !important;
-    }
-
-    i[class^="fa-"],
-    i[class*=" fa-"],
-    .fas, .fab, .far, .fal, .fad {
-        color: black !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
     }
 }

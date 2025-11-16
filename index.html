@@ -3,64 +3,198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Радия Торшхоева | Дата-ассистент & Специалист по анализу данных</title>
-    <meta name="description" content="Профессиональный анализ данных | Превращаю хаос в порядок | Очистка, визуализация, автоматизация отчетов">
+    <title>Дата-ассистент & Специалист по анализу данных | Защищенное портфолио</title>
+    <meta name="description" content="Профессиональный анализ данных | Превращаю хаос в порядок | Очистка, визуализация, автоматизация отчетов | Защищенное портфолио">
     <meta name="author" content="Радия Торшхоева">
 
     <!-- Security Headers -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; connect-src 'self'">
-    <meta name="referrer" content="no-referrer">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; connect-src 'self'">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta name="referrer" content="no-referrer-when-downgrade">
 
     <!-- Preload Resources -->
     <link rel="preload" href="style.css" as="style">
     <link rel="preload" href="script.js" as="script">
 
-    <!-- Font Awesome Icons - FIXED SINGLE VERSION -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
 
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- New Libraries -->
+    <!-- Libraries -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-    <!-- Protection Script -->
+    <!-- Enhanced Security Script -->
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Улучшенная защита без блокировки легитимных действий
-        document.addEventListener('contextmenu', function(e) {
-            if (e.target.tagName === 'IMG') {
-                e.preventDefault();
-                return false;
+        // Enhanced Security System
+        class EnhancedSecurity {
+            constructor() {
+                this.attempts = 0;
+                this.maxAttempts = 3;
+                this.init();
             }
-        });
 
-        document.addEventListener('dragstart', function(e) {
-            if (e.target.tagName === 'IMG') {
-                e.preventDefault();
-                return false;
+            init() {
+                this.setupContentProtection();
+                this.setupDeveloperToolsDetection();
+                this.setupKeyboardProtection();
+                this.setupCopyProtection();
             }
-        });
 
-        document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey && e.shiftKey && e.key === 'I') {
-                e.preventDefault();
-                return false;
+            setupContentProtection() {
+                // Enhanced context menu protection
+                document.addEventListener('contextmenu', (e) => {
+                    const protectedElements = ['IMG', 'CANVAS', 'VIDEO'];
+                    if (protectedElements.includes(e.target.tagName) ||
+                        e.target.classList.contains('protected-content') ||
+                        e.target.closest('.protected-content')) {
+                        e.preventDefault();
+                        this.showSecurityWarning('Защита: Контекстное меню отключено в защищенных зонах');
+                        return false;
+                    }
+                });
+
+                // Enhanced drag protection
+                document.addEventListener('dragstart', (e) => {
+                    if (e.target.tagName === 'IMG' ||
+                        e.target.classList.contains('protected-image') ||
+                        e.target.closest('.portfolio, .protected-content')) {
+                        e.preventDefault();
+                        this.showSecurityWarning('Защита: Перетаскивание контента ограничено');
+                        return false;
+                    }
+                });
+
+                // Select protection for portfolio
+                document.addEventListener('selectstart', (e) => {
+                    if (e.target.closest('.portfolio, .protected-content')) {
+                        e.preventDefault();
+                        return false;
+                    }
+                });
             }
-        });
+
+            setupDeveloperToolsDetection() {
+                // Basic dev tools detection
+                const devToolsCheck = () => {
+                    const widthThreshold = 160;
+                    if (window.outerWidth - window.innerWidth > widthThreshold ||
+                        window.outerHeight - window.innerHeight > widthThreshold) {
+                        this.showSecurityWarning('Обнаружены инструменты разработчика');
+                        this.attempts++;
+                        if (this.attempts >= this.maxAttempts) {
+                            document.body.innerHTML = '<div style="display:flex; justify-content:center; align-items:center; height:100vh; background:#1a1a1a; color:white; font-family:Inter;">⚠️ Доступ ограничен системой безопасности</div>';
+                        }
+                    }
+                };
+
+                setInterval(devToolsCheck, 1000);
+            }
+
+            setupKeyboardProtection() {
+                document.addEventListener('keydown', (e) => {
+                    // Block F12, Ctrl+Shift+I, Ctrl+Shift+C, Ctrl+U
+                    if (e.key === 'F12' ||
+                        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C')) ||
+                        (e.ctrlKey && e.key === 'u')) {
+                        e.preventDefault();
+                        this.showSecurityWarning('Защита: Комбинация клавиш заблокирована');
+                        return false;
+                    }
+
+                    // Block PrintScreen in protected areas
+                    if ((e.key === 'PrintScreen' || (e.ctrlKey && e.key === 'p')) &&
+                        document.querySelector('.modal.active')) {
+                        e.preventDefault();
+                        this.showSecurityWarning('Защита: Создание скриншотов ограничено');
+                        return false;
+                    }
+                });
+            }
+
+            setupCopyProtection() {
+                document.addEventListener('copy', (e) => {
+                    if (e.target.closest('.portfolio, .protected-content, .project-showcase')) {
+                        e.preventDefault();
+                        this.showSecurityWarning('Защита: Копирование защищенного контента ограничено');
+                        return false;
+                    }
+                });
+
+                document.addEventListener('cut', (e) => {
+                    if (e.target.closest('.portfolio, .protected-content')) {
+                        e.preventDefault();
+                        return false;
+                    }
+                });
+            }
+
+            showSecurityWarning(message) {
+                const existingWarning = document.querySelector('.security-warning');
+                if (existingWarning) existingWarning.remove();
+
+                const warning = document.createElement('div');
+                warning.className = 'security-warning';
+                warning.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+                    color: white;
+                    padding: 15px 20px;
+                    border-radius: 10px;
+                    z-index: 10000;
+                    font-family: Inter, sans-serif;
+                    box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+                    border-left: 4px solid #ff4757;
+                    max-width: 350px;
+                    font-weight: 600;
+                    font-size: 0.9rem;
+                    transform: translateX(400px);
+                    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                    backdrop-filter: blur(10px);
+                `;
+                warning.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-shield-alt" style="font-size: 1.2rem;"></i>
+                        <div>
+                            <div style="font-weight: 700; margin-bottom: 4px;">Система защиты</div>
+                            <div>${message}</div>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(warning);
+
+                setTimeout(() => warning.style.transform = 'translateX(0)', 100);
+                setTimeout(() => {
+                    warning.style.transform = 'translateX(400px)';
+                    setTimeout(() => warning.remove(), 400);
+                }, 4000);
+            }
+        }
+
+        // Initialize enhanced security
+        new EnhancedSecurity();
     });
     </script>
 </head>
 <body data-theme="light">
     <!-- Водяной знак защиты -->
-    <div class="watermark" data-watermark="Радия Торшхоева - Protected Portfolio"></div>
+    <div class="watermark" data-watermark="Защищенное портфолио"></div>
 
     <!-- Preloader -->
     <div class="preloader">
         <div class="loader">
             <div class="loader-circle"></div>
             <p>Загрузка портфолио...</p>
+            <div class="security-status">
+                <i class="fas fa-shield-alt"></i>
+                <span>Защита активирована</span>
+            </div>
         </div>
     </div>
 
@@ -73,7 +207,7 @@
     <!-- Floating Navigation -->
     <nav class="floating-nav">
         <div class="nav-container">
-            <a href="#hero" class="nav-logo">Радия</a>
+            <a href="#hero" class="nav-logo">Дата-специалист</a>
             <div class="nav-links">
                 <a href="#about" title="Обо мне - Узнайте больше о моем опыте и навыках">
                     <i class="fas fa-user-tie"></i>
@@ -168,9 +302,9 @@
                         <i class="fas fa-chart-pie"></i>
                         <span>Визуализация</span>
                     </div>
-                    <div class="card card-3" title="Автоматизация - Автоматизация рутинных процессов">
-                        <i class="fas fa-robot"></i>
-                        <span>Автоматизация</span>
+                    <div class="card card-3" title="Очистка данных - Приведение данных к единому формату">
+                        <i class="fas fa-broom"></i>
+                        <span>Очистка данных</span>
                     </div>
                 </div>
             </div>
@@ -198,38 +332,40 @@
                     <div class="skills-grid">
                         <div class="skill-item">
                             <div class="skill-header">
-                                <span class="skill-name"><i class="fas fa-file-excel"></i> Excel / Google Таблицы</span>
+                                <span class="skill-name">
+                                    <i class="fas fa-file-excel"></i>
+                                    Excel / Google Таблицы
+                                </span>
                                 <span class="skill-level">Продвинутый</span>
                             </div>
                             <div class="skill-bar">
                                 <div class="skill-progress" data-level="95"></div>
                             </div>
                         </div>
+
                         <div class="skill-item">
                             <div class="skill-header">
-                                <span class="skill-name"><i class="fas fa-broom"></i> Очистка данных</span>
+                                <span class="skill-name">
+                                    <i class="fas fa-broom"></i>
+                                    Очистка данных
+                                </span>
                                 <span class="skill-level">Эксперт</span>
                             </div>
                             <div class="skill-bar">
                                 <div class="skill-progress" data-level="98"></div>
                             </div>
                         </div>
+
                         <div class="skill-item">
                             <div class="skill-header">
-                                <span class="skill-name"><i class="fas fa-chart-bar"></i> Визуализация</span>
+                                <span class="skill-name">
+                                    <i class="fas fa-chart-bar"></i>
+                                    Визуализация данных
+                                </span>
                                 <span class="skill-level">Продвинутый</span>
                             </div>
                             <div class="skill-bar">
                                 <div class="skill-progress" data-level="90"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-header">
-                                <span class="skill-name"><i class="fas fa-robot"></i> Автоматизация</span>
-                                <span class="skill-level">Продвинутый</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-level="92"></div>
                             </div>
                         </div>
                     </div>
@@ -238,7 +374,7 @@
                     <div class="image-placeholder">
                         <i class="fas fa-laptop-code"></i>
                         <p>Профессиональный анализ данных</p>
-                        <p class="name-signature">- Радия Торшхоева</p>
+                        <p class="name-signature">- Дата-специалист</p>
                     </div>
                 </div>
             </div>
@@ -279,26 +415,14 @@
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
-                        <i class="fas fa-robot"></i>
+                        <i class="fas fa-file-alt"></i>
                     </div>
-                    <h3>Автоматизация</h3>
-                    <p>Настройка автоматических отчетов. Больше не тратьте время на рутинные задачи.</p>
+                    <h3>Анализ данных</h3>
+                    <p>Глубокий анализ данных для выявления трендов и закономерностей. Помогаю принимать взвешенные решения.</p>
                     <ul class="service-features">
-                        <li><i class="fas fa-check"></i> Ежедневные отчеты</li>
-                        <li><i class="fas fa-check"></i> Автоматические уведомления</li>
-                        <li><i class="fas fa-check"></i> Интеграция с системами</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-search"></i>
-                    </div>
-                    <h3>Анализ эффективности</h3>
-                    <p>Глубокий анализ данных для поиска скрытых возможностей и точек роста.</p>
-                    <ul class="service-features">
-                        <li><i class="fas fa-check"></i> Анализ трендов</li>
-                        <li><i class="fas fa-check"></i> Выявление аномалий</li>
-                        <li><i class="fas fa-check"></i> Прогнозные модели</li>
+                        <li><i class="fas fa-check"></i> Статистический анализ</li>
+                        <li><i class="fas fa-check"></i> Выявление трендов</li>
+                        <li><i class="fas fa-check"></i> Прогнозное моделирование</li>
                     </ul>
                 </div>
             </div>
@@ -314,7 +438,7 @@
             </div>
 
             <!-- Project 1: Financial Analysis -->
-            <div class="project-showcase">
+            <div class="project-showcase protected-content">
                 <div class="project-content">
                     <div class="project-badge"><i class="fas fa-chart-line"></i> Кейс изучения</div>
                     <h3>Анализ личных финансов</h3>
@@ -359,8 +483,15 @@
                             <span class="tech-tag"><i class="fas fa-calculator"></i> Формулы Excel</span>
                             <span class="tech-tag"><i class="fas fa-project-diagram"></i> Сводные таблицы</span>
                             <span class="tech-tag"><i class="fas fa-chart-pie"></i> Диаграммы</span>
-                            <span class="tech-tag"><i class="fas fa-robot"></i> Автоматизация</span>
                         </div>
+                    </div>
+
+                    <!-- Download Button -->
+                    <div class="project-download">
+                        <a href="assets/files/portfolio.xlsx" class="btn btn-primary" download title="Скачать Excel файл проекта">
+                            <i class="fas fa-download"></i>
+                            Скачать Excel проект
+                        </a>
                     </div>
                 </div>
 
@@ -417,23 +548,6 @@
                                 </div>
                             </div>
                             <p><i class="fas fa-tachometer-alt"></i> Интерактивная панель управления</p>
-                        </div>
-                        <div class="viz-item">
-                            <div class="image-container">
-                                <img src="assets/images/Показатели и Расход по приоритетам.png"
-                                     alt="Анализ расходов по приоритетам"
-                                     class="protected-image portfolio-image"
-                                     loading="lazy">
-                                <div class="image-overlay">
-                                    <button class="zoom-btn"
-                                            data-image="assets/images/Показатели и Расход по приоритетам.png"
-                                            data-caption="Анализ расходов по приоритетам">
-                                        <i class="fas fa-expand"></i>
-                                        Увеличить
-                                    </button>
-                                </div>
-                            </div>
-                            <p><i class="fas fa-sort-amount-down"></i> Анализ расходов по приоритетам</p>
                         </div>
                     </div>
                 </div>
@@ -498,10 +612,6 @@
                     <a href="#contact" class="btn btn-primary btn-large">
                         <i class="fas fa-calendar-check"></i>
                         Запланировать консультацию
-                    </a>
-                    <a href="#portfolio" class="btn btn-secondary btn-large">
-                        <i class="fas fa-eye"></i>
-                        Посмотреть другие работы
                     </a>
                 </div>
             </div>
@@ -572,7 +682,6 @@
                                 <option value="cleaning">Очистка данных</option>
                                 <option value="analysis">Анализ данных</option>
                                 <option value="visualization">Визуализация</option>
-                                <option value="automation">Автоматизация</option>
                                 <option value="other">Другое</option>
                             </select>
                         </div>
@@ -606,12 +715,18 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-info">
-                    <h3>Радия Торшхоева</h3>
+                    <h3>Дата-специалист</h3>
                     <p>Дата-ассистент | Специалист по обработке и визуализации данных</p>
                     <div class="social-links">
-                        <a href="https://t.me/tonettes7" class="social-link" title="Telegram - Написать в Telegram"><i class="fab fa-telegram"></i></a>
-                        <a href="https://github.com/Roma1377" class="social-link" title="GitHub - Посмотреть код на GitHub"><i class="fab fa-github"></i></a>
-                        <a href="mailto:t.radiya7@gmail.com" class="social-link" title="Email - Написать письмо"><i class="fas fa-envelope"></i></a>
+                        <a href="https://t.me/tonettes7" class="social-link" title="Telegram - Написать в Telegram" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <a href="https://github.com/Roma1377" class="social-link" title="GitHub - Посмотреть код на GitHub" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="mailto:t.radiya7@gmail.com" class="social-link" title="Email - Написать письмо">
+                            <i class="fas fa-envelope"></i>
+                        </a>
                     </div>
                 </div>
                 <div class="footer-links">
@@ -625,8 +740,7 @@
                     <h4>Услуги</h4>
                     <a href="#services"><i class="fas fa-arrow-right"></i> Очистка данных</a>
                     <a href="#services"><i class="fas fa-arrow-right"></i> Визуализация</a>
-                    <a href="#services"><i class="fas fa-arrow-right"></i> Автоматизация</a>
-                    <a href="#services"><i class="fas fa-arrow-right"></i> Анализ эффективности</a>
+                    <a href="#services"><i class="fas fa-arrow-right"></i> Анализ данных</a>
                 </div>
                 <div class="footer-newsletter">
                     <h4>Оставайтесь на связи</h4>
@@ -638,7 +752,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p class="copyright">© 2024 Радия Торшхоева. Все права защищены.</p>
+                <p class="copyright">© 2024 Дата-специалист. Все права защищены.</p>
                 <p class="security-badge">
                     <i class="fas fa-shield-alt"></i>
                     Защищенное портфолио
@@ -657,19 +771,19 @@
     </div>
 
     <!-- Floating Action Button -->
-    <div class="fab">
-        <button class="fab-button" title="Быстрые контакты">
-            <i class="fas fa-comment"></i>
+    <div class="fab-container">
+        <button class="fab-button" id="fabMain" title="Быстрые контакты">
+            <i class="fas fa-comments"></i>
         </button>
         <div class="fab-options">
-            <a href="https://t.me/tonettes7" class="fab-option telegram" title="Написать в Telegram">
+            <a href="https://t.me/tonettes7" class="fab-option telegram" title="Написать в Telegram" target="_blank" rel="noopener noreferrer">
                 <i class="fab fa-telegram"></i>
             </a>
             <a href="mailto:t.radiya7@gmail.com" class="fab-option email" title="Написать письмо">
                 <i class="fas fa-envelope"></i>
             </a>
             <a href="#contact" class="fab-option contact" title="Перейти к контактной форме">
-                <i class="fas fa-phone"></i>
+                <i class="fas fa-edit"></i>
             </a>
         </div>
     </div>
@@ -679,6 +793,7 @@
         <i class="fas fa-chevron-up"></i>
     </button>
 
+    <!-- Scripts -->
     <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 </body>

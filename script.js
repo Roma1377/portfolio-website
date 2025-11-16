@@ -1,113 +1,100 @@
-// script.js - Premium Protected Portfolio with Enhanced Features
+// script.js - Protected Portfolio with Working Security
 (function(){
     'use strict';
 
-    // Enhanced Security System
+    // Enhanced Security System (Non-blocking)
     class SecuritySystem {
         constructor() {
+            this.attempts = 0;
+            this.maxAttempts = 5;
             this.init();
         }
 
         init() {
             this.protectContent();
-            this.antiScreenCapture();
-            this.setupEnhancedProtection();
+            this.setupBasicProtection();
         }
 
         protectContent() {
-            // Prevent context menu only for images
+            // Basic context menu protection for images only
             document.addEventListener('contextmenu', (e) => {
-                if (e.target.tagName === 'IMG') {
+                if (e.target.tagName === 'IMG' && e.target.classList.contains('protected-image')) {
                     e.preventDefault();
-                    this.showWarning('Контекстное меню для изображений отключено');
+                    this.showProtectionWarning('Защита: Контекстное меню для изображений отключено');
                     return false;
                 }
             });
 
-            // Prevent image drag
+            // Basic drag protection for images only
             document.addEventListener('dragstart', (e) => {
-                if (e.target.tagName === 'IMG') {
+                if (e.target.tagName === 'IMG' && e.target.classList.contains('protected-image')) {
                     e.preventDefault();
-                    this.showWarning('Перетаскивание изображений запрещено');
+                    this.showProtectionWarning('Защита: Перетаскивание изображений ограничено');
                     return false;
                 }
             });
 
-            // Prevent copy for specific elements
+            // Basic copy protection for protected content
             document.addEventListener('copy', (e) => {
                 if (e.target.classList.contains('protected-content')) {
                     e.preventDefault();
-                    this.showWarning('Копирование этого содержимого запрещено');
+                    this.showProtectionWarning('Защита: Копирование этого раздела ограничено');
                     return false;
                 }
             });
         }
 
-        antiScreenCapture() {
-            // Blur content on print screen attempt
+        setupBasicProtection() {
+            // Basic keyboard protection - non-blocking
             document.addEventListener('keydown', (e) => {
+                // Only block PrintScreen for protected content view
                 if (e.key === 'PrintScreen') {
-                    e.preventDefault();
-                    document.body.classList.add('blurred');
-                    setTimeout(() => {
-                        document.body.classList.remove('blurred');
-                    }, 2000);
-                    this.showWarning('Скриншот заблокирован');
-                    return false;
-                }
-            });
-        }
-
-        setupEnhancedProtection() {
-            // Защита от горячих клавиш для скриншотов
-            document.addEventListener('keydown', (e) => {
-                // Windows + Shift + S, Cmd + Shift + 3/4 и т.д.
-                if ((e.ctrlKey && e.shiftKey && e.key === 'S') ||
-                    (e.metaKey && e.shiftKey && (e.key === '3' || e.key === '4'))) {
-                    e.preventDefault();
-                this.showWarning('Создание скриншотов ограничено');
-                return false;
-                    }
-            });
-
-            // Защита от вставки изображений
-            document.addEventListener('paste', (e) => {
-                if (e.clipboardData && e.clipboardData.items) {
-                    for (let item of e.clipboardData.items) {
-                        if (item.type.indexOf('image') !== -1) {
-                            e.preventDefault();
-                            this.showWarning('Вставка изображений запрещена');
-                            return false;
-                        }
+                    const activeModal = document.querySelector('.modal.active');
+                    if (activeModal) {
+                        e.preventDefault();
+                        this.showProtectionWarning('Защита: Создание скриншотов ограничено в режиме просмотра');
+                        return false;
                     }
                 }
             });
         }
 
-        showWarning(message) {
+        showProtectionWarning(message) {
             const warning = document.createElement('div');
             warning.style.cssText = `
             position: fixed;
             top: 20px;
             right: 20px;
-            background: #ff4757;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
-            padding: 15px 20px;
-            border-radius: 10px;
+            padding: 12px 18px;
+            border-radius: 8px;
             z-index: 10000;
             font-family: Inter, sans-serif;
-            box-shadow: 0 10px 30px rgba(255, 71, 87, 0.3);
-            border-left: 4px solid #ff0000;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+            border-left: 4px solid #5a6fd8;
             max-width: 300px;
             font-weight: 500;
+            font-size: 0.85rem;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
             `;
-            warning.textContent = message;
+            warning.innerHTML = `<i class="fas fa-shield-alt" style="margin-right: 8px;"></i>${message}`;
             document.body.appendChild(warning);
 
+            // Animate in
             setTimeout(() => {
-                if (document.body.contains(warning)) {
-                    document.body.removeChild(warning);
-                }
+                warning.style.transform = 'translateX(0)';
+            }, 100);
+
+            // Remove after delay
+            setTimeout(() => {
+                warning.style.transform = 'translateX(400px)';
+                setTimeout(() => {
+                    if (document.body.contains(warning)) {
+                        document.body.removeChild(warning);
+                    }
+                }, 300);
             }, 3000);
         }
     }
@@ -117,20 +104,20 @@
         constructor() {
             this.security = new SecuritySystem();
             this.currentTestimonial = 0;
+            this.isInitialized = false;
             this.init();
         }
 
         init() {
-            this.setupIconLoader();
+            if (this.isInitialized) return;
+
             this.setupPreloader();
             this.setupNavigation();
-            this.setupEnhancedNavigation();
-            this.setupEnhancedThemeToggle();
+            this.setupThemeToggle();
             this.setupAnimations();
             this.setupCounters();
             this.setupParticles();
-            this.setupEnhancedModal();
-            this.setupImageProtection();
+            this.setupModal();
             this.setupContactForm();
             this.setupFloatingActions();
             this.setupBackToTop();
@@ -139,97 +126,35 @@
             this.setupMap();
             this.updateCopyright();
             this.setupConsoleGreeting();
-            this.setupParallax();
-            this.cleanupTestimonials();
-            this.setupEnhancedFeatures();
-        }
 
-        setupIconLoader() {
-            // Wait for Font Awesome to load completely
-            let attempts = 0;
-            const maxAttempts = 50;
-
-            const iconCheck = setInterval(() => {
-                attempts++;
-                const testIcon = document.createElement('i');
-                testIcon.className = 'fas fa-check';
-                testIcon.style.display = 'none';
-                document.body.appendChild(testIcon);
-
-                const computedStyle = window.getComputedStyle(testIcon, '::before');
-                const content = computedStyle.content;
-
-                document.body.removeChild(testIcon);
-
-                if (content && content !== 'none' && content !== 'normal') {
-                    clearInterval(iconCheck);
-                    this.initializeIcons();
-                } else if (attempts >= maxAttempts) {
-                    clearInterval(iconCheck);
-                    console.warn('Font Awesome icons failed to load');
-                    this.loadIconsFallback();
-                }
-            }, 100);
-        }
-
-        initializeIcons() {
-            console.log('Font Awesome icons loaded successfully');
-            // Add loaded class to body for CSS enhancements
-            document.body.classList.add('icons-loaded');
-
-            // Enhance specific icons with additional animations
-            this.enhanceHeroIcons();
-            this.enhanceServiceIcons();
-            this.enhanceNavigationIcons();
-        }
-
-        loadIconsFallback() {
-            // Fallback CDN if primary fails
-            const fallbackLink = document.createElement('link');
-            fallbackLink.rel = 'stylesheet';
-            fallbackLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css';
-            document.head.appendChild(fallbackLink);
-
-            console.log('Loading Font Awesome fallback...');
-        }
-
-        enhanceHeroIcons() {
-            // Add special effects to hero section icons
-            const heroIcons = document.querySelectorAll('#hero i');
-            heroIcons.forEach((icon, index) => {
-                icon.style.setProperty('--icon-delay', `${index * 0.1}s`);
-                icon.classList.add('hero-icon-enhanced');
-            });
-        }
-
-        enhanceServiceIcons() {
-            // Add staggered animations to service icons
-            const serviceIcons = document.querySelectorAll('.service-icon i');
-            serviceIcons.forEach((icon, index) => {
-                icon.style.animationDelay = `${index * 0.2}s`;
-            });
-        }
-
-        enhanceNavigationIcons() {
-            // Add smooth transitions to navigation icons
-            const navIcons = document.querySelectorAll('.nav-links a i');
-            navIcons.forEach(icon => {
-                icon.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
-            });
+            this.isInitialized = true;
         }
 
         setupPreloader() {
             window.addEventListener('load', () => {
                 setTimeout(() => {
-                    document.querySelector('.preloader').classList.add('loaded');
+                    const preloader = document.querySelector('.preloader');
+                    if (preloader) {
+                        preloader.classList.add('loaded');
+                    }
                 }, 1000);
             });
+
+            // Fallback
+            setTimeout(() => {
+                const preloader = document.querySelector('.preloader');
+                if (preloader && !preloader.classList.contains('loaded')) {
+                    preloader.classList.add('loaded');
+                }
+            }, 3000);
         }
 
         setupNavigation() {
             const nav = document.querySelector('.floating-nav');
             const navToggle = document.querySelector('.nav-toggle');
             const navLinks = document.querySelector('.nav-links');
+
+            if (!nav) return;
 
             // Sticky navigation
             window.addEventListener('scroll', () => {
@@ -276,19 +201,10 @@
             });
         }
 
-        setupEnhancedNavigation() {
-            const navLinks = document.querySelectorAll('.nav-links a');
-            navLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    // Добавляем индикацию активного раздела
-                    navLinks.forEach(l => l.classList.remove('active'));
-                    link.classList.add('active');
-                });
-            });
-        }
-
-        setupEnhancedThemeToggle() {
+        setupThemeToggle() {
             const themeToggle = document.getElementById('themeToggle');
+            if (!themeToggle) return;
+
             const themeIcon = themeToggle.querySelector('.theme-icon');
             const themeText = themeToggle.querySelector('.theme-text');
 
@@ -319,7 +235,6 @@
         }
 
         setupAnimations() {
-            // Intersection Observer for scroll animations
             const observerOptions = {
                 threshold: 0.1,
                 rootMargin: '0px 0px -50px 0px'
@@ -342,7 +257,7 @@
             }, observerOptions);
 
             // Observe all animated elements
-            document.querySelectorAll('.section, .card, .service-card, .skill-progress, .viz-item, .process-step').forEach(el => {
+            document.querySelectorAll('.section, .service-card, .skill-progress, .viz-item, .process-step').forEach(el => {
                 el.classList.add('animate-on-scroll');
                 observer.observe(el);
             });
@@ -405,7 +320,7 @@
             if (typeof particlesJS !== 'undefined') {
                 particlesJS('particles-js', {
                     particles: {
-                        number: { value: 80, density: { enable: true, value_area: 800 } },
+                        number: { value: 60, density: { enable: true, value_area: 800 } },
                         color: { value: "#ffffff" },
                         shape: { type: "circle" },
                         opacity: { value: 0.5, random: true },
@@ -440,11 +355,13 @@
             }
         }
 
-        setupEnhancedModal() {
+        setupModal() {
             const modal = document.getElementById('imageModal');
             const modalImg = document.getElementById('modalImage');
             const modalCaption = document.querySelector('.modal-caption');
             const closeBtn = document.querySelector('.modal-close');
+
+            if (!modal) return;
 
             document.querySelectorAll('.zoom-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
@@ -457,13 +374,10 @@
                     modalCaption.textContent = caption;
                     modal.classList.add('active');
                     document.body.style.overflow = 'hidden';
-
-                    // Добавляем защиту для модального изображения
-                    modalImg.classList.add('protected-image');
                 });
             });
 
-            // Закрытие модального окна
+            // Close modal
             [closeBtn, modal].forEach(element => {
                 element.addEventListener('click', (e) => {
                     if (e.target === closeBtn || e.target === modal) {
@@ -475,22 +389,12 @@
                 });
             });
 
-            // Закрытие по Escape
+            // Close on Escape
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape' && modal.classList.contains('active')) {
                     modal.classList.remove('active');
                     document.body.style.overflow = '';
                 }
-            });
-        }
-
-        setupImageProtection() {
-            // Улучшенная защита изображений
-            document.querySelectorAll('.portfolio-image').forEach(img => {
-                img.addEventListener('load', function() {
-                    // Добавляем водяной знак поверх изображения
-                    this.style.position = 'relative';
-                });
             });
         }
 
@@ -513,18 +417,14 @@
                 contactForm.addEventListener('submit', (e) => {
                     e.preventDefault();
 
-                    // Validate form
                     if (this.validateForm(contactForm)) {
-                        // Get form data
                         const formData = new FormData(contactForm);
                         const data = Object.fromEntries(formData);
 
-                        // Simulate form submission
                         this.showNotification('Запрос отправлен! Я свяжусь с вами в ближайшее время.', 'success');
                         contactForm.reset();
-                        fileName.textContent = '';
+                        if (fileName) fileName.textContent = '';
 
-                        // Here you would typically send data to a server
                         console.log('Form submitted:', data);
                     }
                 });
@@ -581,7 +481,7 @@
 
         showNotification(message, type = 'info') {
             const notification = document.createElement('div');
-            const bgColor = type === 'success' ? '#4CAF50' : type === 'error' ? '#f44336' : '#2196F3';
+            const bgColor = type === 'success' ? '#4CAF50' : '#2196F3';
 
             notification.style.cssText = `
             position: fixed;
@@ -599,7 +499,7 @@
             transform: translateX(400px);
             transition: transform 0.3s ease;
             `;
-            notification.textContent = message;
+            notification.innerHTML = `<i class="fas fa-${type === 'success' ? 'check' : 'info'}-circle" style="margin-right: 8px;"></i>${message}`;
             document.body.appendChild(notification);
 
             // Animate in
@@ -619,18 +519,30 @@
         }
 
         setupFloatingActions() {
-            const fabButton = document.querySelector('.fab-button');
+            const fabButton = document.getElementById('fabMain');
             const fabOptions = document.querySelector('.fab-options');
 
             if (fabButton && fabOptions) {
-                fabButton.addEventListener('click', () => {
+                // Toggle FAB options
+                fabButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
                     fabOptions.classList.toggle('active');
                 });
 
-                // Close FAB options when clicking outside
+                // Close FAB when clicking outside
                 document.addEventListener('click', (e) => {
                     if (!fabButton.contains(e.target) && !fabOptions.contains(e.target)) {
                         fabOptions.classList.remove('active');
+                    }
+                });
+
+                // Close FAB after clicking an option
+                fabOptions.addEventListener('click', (e) => {
+                    if (e.target.closest('.fab-option')) {
+                        setTimeout(() => {
+                            fabOptions.classList.remove('active');
+                        }, 300);
                     }
                 });
             }
@@ -638,6 +550,8 @@
 
         setupBackToTop() {
             const backToTop = document.querySelector('.back-to-top');
+
+            if (!backToTop) return;
 
             backToTop.addEventListener('click', () => {
                 window.scrollTo({
@@ -671,12 +585,13 @@
             const texts = [
                 "Очистка данных",
                 "Аналитическая визуализация",
-                "Автоматизация отчетов",
                 "Финансовый анализ",
                 "Превращение хаоса в порядок"
             ];
 
             const typewriterElement = document.querySelector('.typewriter-text');
+            if (!typewriterElement) return;
+
             let textIndex = 0;
             let charIndex = 0;
             let isDeleting = false;
@@ -714,132 +629,86 @@
             const mapElement = document.getElementById('map');
             if (!mapElement) return;
 
-            // Simple map initialization - you would need to add your API key for full functionality
             try {
-                const map = L.map('map').setView([55.7558, 37.6173], 10); // Moscow coordinates
+                // Initialize map with proper settings
+                const map = L.map('map', {
+                    zoomControl: true,
+                    scrollWheelZoom: false,
+                    dragging: false,
+                    tap: false
+                }).setView([55.7558, 37.6173], 3); // Zoom out to show more of the map
 
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '© OpenStreetMap contributors'
+                    attribution: '© OpenStreetMap contributors',
+                    maxZoom: 18,
+                    minZoom: 2
                 }).addTo(map);
 
-                L.marker([55.7558, 37.6173]).addTo(map)
-                .bindPopup('Работаю удаленно')
-                .openPopup();
+                // Add multiple markers to show remote work concept
+                const locations = [
+                    [55.7558, 37.6173, 'Москва'],
+                    [48.8566, 2.3522, 'Париж'],
+                    [40.7128, -74.0060, 'Нью-Йорк'],
+                    [35.6762, 139.6503, 'Токио']
+                ];
+
+                locations.forEach(([lat, lng, city]) => {
+                    L.marker([lat, lng])
+                    .addTo(map)
+                    .bindPopup(`<strong>${city}</strong><br>Удаленная работа`)
+                    .openPopup();
+                });
+
+                // Fit map to show all markers
+                const group = new L.featureGroup(locations.map(([lat, lng]) => L.marker([lat, lng])));
+                map.fitBounds(group.getBounds().pad(0.5));
+
+                // Update map size after load
+                setTimeout(() => {
+                    map.invalidateSize();
+                }, 100);
+
             } catch (error) {
                 console.log('Map initialization failed:', error);
-                // Fallback - show message
-                mapElement.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; height: 100%; background: var(--light); color: var(--gray);">Карта недоступна</div>';
+                mapElement.innerHTML = `
+                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; background: var(--light); color: var(--gray); border-radius: var(--border-radius); padding: 2rem; text-align: center;">
+                <i class="fas fa-globe" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                <h4 style="margin-bottom: 0.5rem; color: var(--dark);">Глобальная удаленная работа</h4>
+                <p style="opacity: 0.8;">Работаю с клиентами по всему миру</p>
+                <div style="display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; justify-content: center;">
+                <span style="background: var(--primary); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem;">🌍 UTC+3</span>
+                <span style="background: var(--secondary); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem;">💼 Удаленно</span>
+                <span style="background: var(--success); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem;">🚀 Доступна</span>
+                </div>
+                </div>
+                `;
             }
-        }
-
-        setupParallax() {
-            window.addEventListener('scroll', () => {
-                const scrolled = window.pageYOffset;
-                const parallaxElements = document.querySelectorAll('.parallax');
-
-                parallaxElements.forEach(element => {
-                    const speed = element.dataset.speed || 0.5;
-                    element.style.transform = `translateY(${scrolled * speed}px)`;
-                });
-            });
         }
 
         updateCopyright() {
             const copyrightElement = document.querySelector('.copyright');
             if (copyrightElement) {
-                copyrightElement.textContent = `© ${new Date().getFullYear()} Радия Торшхоева. Все права защищены.`;
+                const currentYear = new Date().getFullYear();
+                copyrightElement.textContent = `© ${currentYear} Дата-специалист. Все права защищены.`;
             }
-        }
-
-        cleanupTestimonials() {
-            // Временно скрываем раздел с отзывами
-            const testimonialsSection = document.getElementById('testimonials');
-            if (testimonialsSection) {
-                testimonialsSection.style.display = 'none';
-            }
-        }
-
-        setupEnhancedFeatures() {
-            // Дополнительные улучшения
-            this.setupSmoothScrolling();
-            this.setupLazyLoading();
-            this.setupEnhancedTooltips();
-        }
-
-        setupSmoothScrolling() {
-            // Плавная прокрутка для всех внутренних ссылок
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
-        }
-
-        setupLazyLoading() {
-            // Ленивая загрузка изображений
-            if ('IntersectionObserver' in window) {
-                const imageObserver = new IntersectionObserver((entries, observer) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const img = entry.target;
-                            img.src = img.dataset.src;
-                            img.classList.remove('lazy');
-                            imageObserver.unobserve(img);
-                        }
-                    });
-                });
-
-                document.querySelectorAll('img[data-src]').forEach(img => {
-                    imageObserver.observe(img);
-                });
-            }
-        }
-
-        setupEnhancedTooltips() {
-            // Улучшенные подсказки для всех элементов с title
-            document.querySelectorAll('[title]').forEach(element => {
-                element.addEventListener('mouseenter', (e) => {
-                    const tooltip = document.createElement('div');
-                    tooltip.className = 'enhanced-tooltip';
-                    tooltip.textContent = element.getAttribute('title');
-                    document.body.appendChild(tooltip);
-
-                    const rect = element.getBoundingClientRect();
-                    tooltip.style.left = rect.left + (rect.width / 2) + 'px';
-                    tooltip.style.top = (rect.top - tooltip.offsetHeight - 10) + 'px';
-
-                    element.addEventListener('mouseleave', () => {
-                        if (document.body.contains(tooltip)) {
-                            document.body.removeChild(tooltip);
-                        }
-                    }, { once: true });
-                });
-            });
         }
 
         setupConsoleGreeting() {
             console.log(
-                `%c🔒 УЛУЧШЕННОЕ ЗАЩИЩЕННОЕ ПОРТФОЛИО РАДИЯ ТОРШХОЕВА\n%c💼 Дата-ассистент | Специалист по анализу данных\n%c📊 Превращаю хаос данных в четкие инсайты\n\n⚡ Защита: Улучшенная система безопасности\n🎯 Навыки: Очистка, анализ, визуализация данных\n🚀 Готова к проектам: t.radiya7@gmail.com\n📱 Telegram: @tonettes7`,
-                'color: #667eea; font-size: 18px; font-weight: bold;',
-                'color: #764ba2; font-size: 14px; font-weight: 600;',
-                'color: #333; font-size: 12px;'
+                `%c🔒 ЗАЩИЩЕННОЕ ПОРТФОЛИО ДАТА-СПЕЦИАЛИСТА\n%c💼 Дата-ассистент | Специалист по анализу данных\n%c📊 Превращаю хаос данных в четкие инсайты\n\n⚡ Защита: Базовая система безопасности\n🎯 Навыки: Очистка, анализ, визуализация данных\n🚀 Готова к проектам: t.radiya7@gmail.com\n📱 Telegram: @tonettes7`,
+                'color: #667eea; font-size: 16px; font-weight: bold;',
+                'color: #764ba2; font-size: 12px; font-weight: 600;',
+                'color: #333; font-size: 11px;'
             );
         }
     }
 
-    // Initialize the application when DOM is loaded
+    // Initialize the application
     document.addEventListener('DOMContentLoaded', function() {
         new PortfolioApp();
     });
 
-    // Add CSS for animations and enhanced features
+    // Add CSS for animations
     const style = document.createElement('style');
     style.textContent = `
     .animate-on-scroll {
@@ -855,68 +724,7 @@
 
     .blurred {
         filter: blur(5px);
-    }
-
-    .parallax {
-        transition: transform 0.1s ease;
-    }
-
-    @keyframes smoothAppear {
-        0% {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        100% {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    .enhanced-tooltip {
-        position: fixed;
-        background: rgba(0, 0, 0, 0.8);
-        color: white;
-        padding: 8px 12px;
-        border-radius: 6px;
-        font-size: 0.8rem;
-        z-index: 10000;
-        pointer-events: none;
-        transform: translateX(-50%);
-        white-space: nowrap;
-        animation: tooltipFadeIn 0.2s ease;
-    }
-
-    @keyframes tooltipFadeIn {
-        from {
-            opacity: 0;
-            transform: translateX(-50%) translateY(10px);
-        }
-        to {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-        }
-    }
-
-    .lazy {
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-
-    .lazy-loaded {
-        opacity: 1;
-    }
-
-    .icons-loaded .hero-icon-enhanced {
-        animation: iconGlow 2s ease-in-out infinite alternate;
-    }
-
-    @keyframes iconGlow {
-        from {
-            filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
-        }
-        to {
-            filter: drop-shadow(0 0 15px rgba(255,255,255,0.8));
-        }
+        transition: filter 0.3s ease;
     }
     `;
     document.head.appendChild(style);
