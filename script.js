@@ -105,6 +105,8 @@
             this.security = new SecuritySystem();
             this.currentTestimonial = 0;
             this.isInitialized = false;
+            this.map = null;
+            this.mapInitialized = false;
             this.init();
         }
 
@@ -196,6 +198,13 @@
                             top: targetPosition,
                             behavior: 'smooth'
                         });
+
+                        // Update map size when scrolling to contact section
+                        if (targetId === '#contact' && this.map && !this.mapInitialized) {
+                            setTimeout(() => {
+                                this.initializeMap();
+                            }, 500);
+                        }
                     }
                 });
             });
@@ -250,6 +259,13 @@
                             const level = entry.target.getAttribute('data-level');
                             setTimeout(() => {
                                 entry.target.style.width = level + '%';
+                            }, 300);
+                        }
+
+                        // Initialize map when contact section becomes visible
+                        if (entry.target.id === 'contact' && !this.mapInitialized) {
+                            setTimeout(() => {
+                                this.initializeMap();
                             }, 300);
                         }
                     }
@@ -629,52 +645,98 @@
             const mapElement = document.getElementById('map');
             if (!mapElement) return;
 
+            // Create a simple placeholder for map
+            mapElement.innerHTML = `
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; background: var(--light); color: var(--gray); border-radius: var(--border-radius); padding: 2rem; text-align: center;">
+            <i class="fas fa-globe" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+            <h4 style="margin-bottom: 0.5rem; color: var(--dark);">Глобальная удаленная работа</h4>
+            <p style="opacity: 0.8; margin-bottom: 1rem;">Работаю с клиентами по всему миру</p>
+            <div style="display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; justify-content: center;">
+            <span style="background: var(--primary); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem;">🌍 UTC+3</span>
+            <span style="background: var(--secondary); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem;">💼 Удаленно</span>
+            <span style="background: var(--success); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem;">🚀 Доступна</span>
+            </div>
+            <p style="margin-top: 1.5rem; font-size: 0.9rem; opacity: 0.7;">
+            <i class="fas fa-map-marker-alt"></i>
+            Основное время работы: Москва, Россия
+            </p>
+            </div>
+            `;
+        }
+
+        initializeMap() {
+            if (this.mapInitialized) return;
+
+            const mapElement = document.getElementById('map');
+            if (!mapElement) return;
+
             try {
+                // Remove placeholder content
+                mapElement.innerHTML = '';
+
                 // Initialize map with proper settings
-                const map = L.map('map', {
+                this.map = L.map('map', {
                     zoomControl: true,
                     scrollWheelZoom: false,
-                    dragging: false,
-                    tap: false
-                }).setView([55.7558, 37.6173], 3); // Zoom out to show more of the map
+                    dragging: true,
+                    tap: true
+                }).setView([55.7558, 37.6173], 2);
 
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     attribution: '© OpenStreetMap contributors',
                     maxZoom: 18,
-                    minZoom: 2
-                }).addTo(map);
+                    minZoom: 1
+                }).addTo(this.map);
 
-                // Add multiple markers to show remote work concept
+                // Add main marker
+                const mainMarker = L.marker([55.7558, 37.6173]).addTo(this.map);
+                mainMarker.bindPopup(`
+                <div style="text-align: center; padding: 0.5rem;">
+                <strong>📍 Основная локация</strong><br>
+                Москва, Россия<br>
+                <small>Работаю удаленно по всему миру</small>
+                </div>
+                `).openPopup();
+
+                // Add some additional markers to show global presence
                 const locations = [
-                    [55.7558, 37.6173, 'Москва'],
-                    [48.8566, 2.3522, 'Париж'],
-                    [40.7128, -74.0060, 'Нью-Йорк'],
-                    [35.6762, 139.6503, 'Токио']
+                    [40.7128, -74.0060, 'Нью-Йорк, США'],
+                    [51.5074, -0.1278, 'Лондон, Великобритания'],
+                    [48.8566, 2.3522, 'Париж, Франция'],
+                    [35.6762, 139.6503, 'Токио, Япония'],
+                    [52.5200, 13.4050, 'Берлин, Германия']
                 ];
 
                 locations.forEach(([lat, lng, city]) => {
                     L.marker([lat, lng])
-                    .addTo(map)
-                    .bindPopup(`<strong>${city}</strong><br>Удаленная работа`)
-                    .openPopup();
+                    .addTo(this.map)
+                    .bindPopup(`<strong>${city}</strong><br>Удаленная работа доступна`);
                 });
 
-                // Fit map to show all markers
-                const group = new L.featureGroup(locations.map(([lat, lng]) => L.marker([lat, lng])));
-                map.fitBounds(group.getBounds().pad(0.5));
+                // Fit map to show all markers with padding
+                const bounds = L.latLngBounds([
+                    [55.7558, 37.6173], // Moscow
+                    [40.7128, -74.0060], // New York
+                    [51.5074, -0.1278], // London
+                    [35.6762, 139.6503] // Tokyo
+                ]);
+                this.map.fitBounds(bounds, { padding: [20, 20] });
 
-                // Update map size after load
+                // Update map size after a short delay to ensure container is visible
                 setTimeout(() => {
-                    map.invalidateSize();
+                    this.map.invalidateSize();
                 }, 100);
+
+                this.mapInitialized = true;
 
             } catch (error) {
                 console.log('Map initialization failed:', error);
+                // Fallback to placeholder
                 mapElement.innerHTML = `
                 <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; background: var(--light); color: var(--gray); border-radius: var(--border-radius); padding: 2rem; text-align: center;">
                 <i class="fas fa-globe" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
                 <h4 style="margin-bottom: 0.5rem; color: var(--dark);">Глобальная удаленная работа</h4>
-                <p style="opacity: 0.8;">Работаю с клиентами по всему миру</p>
+                <p style="opacity: 0.8;">Карта временно недоступна</p>
                 <div style="display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; justify-content: center;">
                 <span style="background: var(--primary); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem;">🌍 UTC+3</span>
                 <span style="background: var(--secondary); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem;">💼 Удаленно</span>
@@ -725,6 +787,19 @@
     .blurred {
         filter: blur(5px);
         transition: filter 0.3s ease;
+    }
+
+    /* Ensure map container has proper dimensions */
+    #map {
+    min-height: 350px;
+    width: 100%;
+    background: var(--light);
+    border-radius: var(--border-radius);
+    }
+
+    .leaflet-container {
+        background: var(--light) !important;
+        border-radius: var(--border-radius);
     }
     `;
     document.head.appendChild(style);
