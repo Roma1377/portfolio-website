@@ -29,7 +29,7 @@ cd portfolio-website
 
 ## 📞 Контакты
 
-- **GitHub:** [Roma1377](https://github.com/Roma1377)
+- **Phone:** +79380130796
 - **Email:** t.radiya7@gmail.com  
 - **Telegram:** @tonettes7
 # Запуск (открыть index.html в браузере)
