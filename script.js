@@ -107,6 +107,7 @@
             this.isInitialized = false;
             this.map = null;
             this.mapInitialized = false;
+            this.sliderInterval = null;
             this.init();
         }
 
@@ -126,6 +127,7 @@
             this.setupProgressBar();
             this.setupTypewriter();
             this.setupMap();
+            this.setupSlider();
             this.updateCopyright();
             this.setupConsoleGreeting();
 
@@ -747,6 +749,236 @@
             }
         }
 
+        // В методе setupSlider() заменяем всю функцию на исправленную версию:
+        setupSlider() {
+            const slider = document.querySelector('.slider');
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.querySelector('.slider-nav.prev');
+            const nextBtn = document.querySelector('.slider-nav.next');
+            const indicators = document.querySelectorAll('.indicator');
+            const currentSlideElement = document.querySelector('.current-slide');
+            const totalSlidesElement = document.querySelector('.total-slides');
+
+            if (!slider || slides.length === 0) {
+                console.log('Slider elements not found');
+                return;
+            }
+
+            let currentSlide = 0;
+            const totalSlides = slides.length;
+            let isAnimating = false; // FIX: Защита от множественных кликов
+
+            // FIX: Упрощенная инициализация
+            const initializeSlider = () => {
+                totalSlidesElement.textContent = totalSlides;
+                updateSliderCounter(currentSlide + 1);
+                updateSliderState();
+
+                // Показываем первый слайд
+                slides.forEach((slide, index) => {
+                    slide.classList.remove('active');
+                });
+                slides[0].classList.add('active');
+                if (indicators.length > 0) {
+                    indicators[0].classList.add('active');
+                }
+            };
+
+            const goToSlide = (index) => {
+                if (isAnimating) return;
+                isAnimating = true;
+
+                // FIX: Упрощенное переключение без сложных анимаций
+                slides[currentSlide].classList.remove('active');
+                if (indicators.length > 0) {
+                    indicators[currentSlide].classList.remove('active');
+                }
+
+                currentSlide = index;
+
+                slides[currentSlide].classList.add('active');
+                if (indicators.length > 0) {
+                    indicators[currentSlide].classList.add('active');
+                }
+
+                updateSliderCounter(currentSlide + 1);
+                updateSliderState();
+
+                // FIX: Сбрасываем флаг анимации после задержки
+                setTimeout(() => {
+                    isAnimating = false;
+                }, 500);
+            };
+
+            const nextSlide = () => {
+                const nextIndex = (currentSlide + 1) % totalSlides;
+                goToSlide(nextIndex);
+                resetAutoSlide();
+            };
+
+            const prevSlide = () => {
+                const prevIndex = (currentSlide - 1 + totalSlides) % totalSlides;
+                goToSlide(prevIndex);
+                resetAutoSlide();
+            };
+
+            const updateSliderCounter = (index) => {
+                if (currentSlideElement) {
+                    currentSlideElement.textContent = index;
+                }
+            };
+
+            const updateSliderState = () => {
+                // FIX: Упрощенное обновление состояния кнопок
+                if (prevBtn && nextBtn) {
+                    prevBtn.style.opacity = currentSlide === 0 ? '0.5' : '1';
+                    nextBtn.style.opacity = currentSlide === totalSlides - 1 ? '0.5' : '1';
+                    prevBtn.style.cursor = currentSlide === 0 ? 'not-allowed' : 'pointer';
+                    nextBtn.style.cursor = currentSlide === totalSlides - 1 ? 'not-allowed' : 'pointer';
+                }
+            };
+
+            // FIX: Упрощенные обработчики событий
+            if (nextBtn) {
+                nextBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (currentSlide < totalSlides - 1) {
+                        nextSlide();
+                    }
+                });
+            }
+
+            if (prevBtn) {
+                prevBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (currentSlide > 0) {
+                        prevSlide();
+                    }
+                });
+            }
+
+            // FIX: Индикаторы
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (index !== currentSlide) {
+                        goToSlide(index);
+                        resetAutoSlide();
+                    }
+                });
+            });
+
+            // FIX: Упрощенная автоматическая прокрутка
+            this.startAutoSlide = () => {
+                this.stopAutoSlide();
+                this.sliderInterval = setInterval(() => {
+                    if (currentSlide < totalSlides - 1) {
+                        nextSlide();
+                    } else {
+                        goToSlide(0);
+                    }
+                }, 5000);
+            };
+
+            this.stopAutoSlide = () => {
+                if (this.sliderInterval) {
+                    clearInterval(this.sliderInterval);
+                    this.sliderInterval = null;
+                }
+            };
+
+            this.resetAutoSlide = () => {
+                this.stopAutoSlide();
+                this.startAutoSlide();
+            };
+
+            // FIX: Инициализация
+            initializeSlider();
+            this.startAutoSlide();
+
+            // FIX: Обработчики для паузы при наведении
+            const sliderContainer = document.querySelector('.slider-container');
+            if (sliderContainer) {
+                sliderContainer.addEventListener('mouseenter', () => {
+                    this.stopAutoSlide();
+                });
+
+                sliderContainer.addEventListener('mouseleave', () => {
+                    this.startAutoSlide();
+                });
+            }
+        }
+
+        startAutoSlide() {
+            this.stopAutoSlide(); // Clear any existing interval
+            this.sliderInterval = setInterval(() => {
+                const nextBtn = document.querySelector('.slider-nav.next');
+                if (nextBtn && !nextBtn.disabled) {
+                    const slides = document.querySelectorAll('.slide');
+                    const indicators = document.querySelectorAll('.indicator');
+                    const currentSlideElement = document.querySelector('.current-slide');
+
+                    let currentSlide = 0;
+                    slides.forEach((slide, index) => {
+                        if (slide.classList.contains('active')) {
+                            currentSlide = index;
+                        }
+                    });
+
+                    const nextIndex = (currentSlide + 1) % slides.length;
+
+                    // Remove active class from current slide and indicator
+                    slides[currentSlide].classList.remove('active');
+                    indicators[currentSlide].classList.remove('active');
+
+                    // Add active class to new slide and indicator
+                    slides[nextIndex].classList.add('active');
+                    indicators[nextIndex].classList.add('active');
+
+                    // Update counter
+                    if (currentSlideElement) {
+                        currentSlideElement.textContent = nextIndex + 1;
+                    }
+
+                    // Update button states
+                    this.updateSliderButtons();
+                }
+            }, 5000);
+        }
+
+        stopAutoSlide() {
+            if (this.sliderInterval) {
+                clearInterval(this.sliderInterval);
+                this.sliderInterval = null;
+            }
+        }
+
+        resetAutoSlide() {
+            this.stopAutoSlide();
+            this.startAutoSlide();
+        }
+
+        updateSliderButtons() {
+            const prevBtn = document.querySelector('.slider-nav.prev');
+            const nextBtn = document.querySelector('.slider-nav.next');
+            const slides = document.querySelectorAll('.slide');
+
+            let currentSlide = 0;
+            slides.forEach((slide, index) => {
+                if (slide.classList.contains('active')) {
+                    currentSlide = index;
+                }
+            });
+
+            if (prevBtn && nextBtn) {
+                prevBtn.disabled = currentSlide === 0;
+                nextBtn.disabled = currentSlide === slides.length - 1;
+            }
+        }
+
         updateCopyright() {
             const copyrightElement = document.querySelector('.copyright');
             if (copyrightElement) {
@@ -800,6 +1032,30 @@
     .leaflet-container {
         background: var(--light) !important;
         border-radius: var(--border-radius);
+    }
+
+    /* Enhanced slider transitions */
+    .slider {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+    }
+
+    .slide {
+        transition: opacity 0.5s ease-in-out;
+    }
+
+    .slide:not(.active) {
+        display: none;
+    }
+
+    .slide.active {
+        display: block;
+        animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
     }
     `;
     document.head.appendChild(style);

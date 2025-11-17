@@ -2192,3 +2192,210 @@ i[class*="fa-"] {
         display: none !important;
     }
 }
+
+
+/* Enhanced Slider Styles */
+.slider-container {
+    position: relative;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+/* FIX: Убираем лишние transitions которые конфликтуют */
+.slider-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--border-radius);
+    background: var(--lighter);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border);
+    min-height: 400px;
+}
+
+/* FIX: Упрощаем структуру слайдера */
+.slider {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    height: 100%;
+}
+
+.slide {
+    min-width: 100%;
+    flex-shrink: 0;
+    padding: 2rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: none;
+}
+
+.slide.active {
+    opacity: 1;
+    display: block;
+}
+
+/* FIX: Убеждаемся что кнопки кликабельны поверх всего */
+.slider-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background: var(--primary);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 100;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slider-nav:hover {
+    background: var(--primary-dark);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.slider-nav.prev {
+    left: 20px;
+}
+
+.slider-nav.next {
+    right: 20px;
+}
+
+.slider-nav:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.slider-nav:disabled:hover {
+    transform: translateY(-50%);
+    background: var(--primary);
+}
+
+/* FIX: Упрощаем анимации чтобы избежать конфликтов */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.slide.active {
+    animation: fadeIn 0.5s ease;
+}
+
+.slider-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--gray);
+    cursor: pointer;
+    transition: var(--transition);
+    border: 2px solid transparent;
+}
+
+.indicator.active {
+    background: var(--primary);
+    transform: scale(1.2);
+}
+
+.indicator:hover {
+    background: var(--primary-dark);
+    transform: scale(1.1);
+}
+
+.slider-counter {
+    text-align: center;
+    margin-top: 1rem;
+    font-weight: 600;
+    color: var(--dark);
+    font-size: 0.9rem;
+}
+
+/* Enhanced Viz Items for Slider */
+.slider .viz-item {
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: none;
+}
+
+.slider .viz-item:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.slider .image-container {
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.slider .viz-item p {
+    margin-top: 1.5rem;
+    font-weight: 600;
+    color: var(--dark);
+    text-align: center;
+    font-size: 1.1rem;
+    background: var(--light);
+    padding: 0.8rem 1.5rem;
+    border-radius: var(--border-radius);
+    border-left: 4px solid var(--primary);
+}
+
+/* Responsive Slider */
+@media (max-width: 768px) {
+    .slider-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+
+    .slider-nav.prev {
+        left: 10px;
+    }
+
+    .slider-nav.next {
+        right: 10px;
+    }
+
+    .slide {
+        padding: 1rem;
+    }
+
+    .slider-wrapper {
+        min-height: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .slider-nav {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9rem;
+    }
+
+    .slider-indicators {
+        gap: 6px;
+    }
+
+    .indicator {
+        width: 10px;
+        height: 10px;
+    }
+}
