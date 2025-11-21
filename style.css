@@ -2399,3 +2399,744 @@ i[class*="fa-"] {
         height: 10px;
     }
 }
+/* ===== CRITICAL MOBILE FIXES ===== */
+@media (max-width: 768px) {
+    /* Fixed Navigation with Visible Labels */
+    .nav-links.active {
+        display: flex !important;
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: var(--lighter);
+        backdrop-filter: blur(20px);
+        padding: 1rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        z-index: 1000;
+        border-top: 1px solid var(--border);
+    }
+
+    .nav-link {
+        display: flex !important;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 16px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        min-height: 48px;
+    }
+
+    .nav-text {
+        display: inline-block !important;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--dark);
+    }
+
+    .nav-link i {
+        font-size: 16px;
+        width: 20px;
+        text-align: center;
+    }
+
+    /* Fixed Mobile Menu Toggle */
+    .nav-toggle.active ~ .nav-links {
+        display: flex !important;
+    }
+
+    /* Enhanced Hero Section for Mobile */
+    .hero .container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+
+    .hero-title {
+        font-size: 2.2rem;
+        line-height: 1.2;
+    }
+
+    .hero-subtitle {
+        font-size: 1.1rem;
+        justify-content: center;
+    }
+
+    .hero-description {
+        font-size: 1rem;
+        text-align: left;
+    }
+
+    /* Fixed Stats Layout */
+    .hero-stats {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .stat {
+        min-width: 120px;
+    }
+
+    /* Enhanced Image Slider for Mobile */
+    .slider-container {
+        margin: 1rem -10px;
+    }
+
+    .slider-wrapper {
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    .slide {
+        padding: 1rem;
+    }
+
+    .image-container {
+        min-height: 200px;
+        border-radius: 8px;
+    }
+
+    .portfolio-image {
+        max-height: 200px;
+        object-fit: contain;
+    }
+
+    .viz-item p {
+        font-size: 14px;
+        padding: 8px 12px;
+        margin-top: 12px;
+    }
+
+    /* Fixed Slider Navigation */
+    .slider-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 14px;
+    }
+
+    .slider-nav.prev {
+        left: 8px;
+    }
+
+    .slider-nav.next {
+        right: 8px;
+    }
+
+    /* Enhanced Slider Indicators */
+    .slider-indicators {
+        gap: 6px;
+        margin-top: 1rem;
+    }
+
+    .indicator {
+        width: 10px;
+        height: 10px;
+    }
+
+    .slider-counter {
+        font-size: 12px;
+    }
+
+    /* Fixed Modal for Mobile */
+    .modal-content {
+        max-width: 95%;
+        max-height: 90%;
+        padding: 1rem;
+        margin: 1rem;
+    }
+
+    #modalImage {
+    max-height: 60vh;
+    }
+
+    .modal-close {
+        top: -35px;
+        right: 0;
+        width: 35px;
+        height: 35px;
+        font-size: 1.2rem;
+    }
+
+    /* Enhanced FAB with Labels */
+    .fab-options {
+        bottom: 70px;
+        right: 0;
+    }
+
+    .fab-option {
+        width: auto;
+        padding: 0 16px;
+        border-radius: 25px;
+        justify-content: flex-start;
+        gap: 8px;
+    }
+
+    .fab-label {
+        display: inline-block !important;
+        font-size: 12px;
+        font-weight: 500;
+        white-space: nowrap;
+    }
+
+    /* Fixed Contact Items */
+    .clickable-contact {
+        padding: 12px;
+        margin-bottom: 12px;
+    }
+
+    .clickable-contact i:first-child {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+
+    .clickable-contact strong {
+        font-size: 14px;
+    }
+
+    .clickable-contact span {
+        font-size: 13px;
+    }
+
+    /* Improved Typography for Mobile */
+    .section-header h2 {
+        font-size: 1.8rem;
+    }
+
+    .section-header p {
+        font-size: 1rem;
+    }
+
+    /* Fixed Project Stats Grid */
+    .project-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .project-stat {
+        padding: 1rem;
+    }
+
+    .stat-value {
+        font-size: 1.2rem;
+    }
+
+    .stat-label {
+        font-size: 12px;
+    }
+
+    /* Enhanced Skills Display */
+    .skill-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .skill-level {
+        align-self: flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Ultra-Mobile Optimizations */
+    .container {
+        padding: 0 12px;
+    }
+
+    .hero-title {
+        font-size: 1.8rem;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .project-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .project-tasks ul {
+        columns: 1;
+    }
+
+    .nav-links.active {
+        top: 60px;
+    }
+
+    /* Enhanced Touch Targets */
+    .slider-nav,
+    .indicator,
+    .fab-option,
+    .nav-link {
+        min-height: 44px;
+    }
+
+    /* Better Image Display */
+    .portfolio-image {
+        max-height: 180px;
+    }
+
+    .image-container {
+        min-height: 180px;
+    }
+}
+
+/* ===== FIXED NAVIGATION LABELS ===== */
+.nav-link[title]::after {
+    content: attr(title);
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--dark);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 1001;
+}
+
+.nav-link[title]:hover::after {
+    opacity: 1;
+}
+
+/* ===== ENHANCED SLIDER FUNCTIONALITY ===== */
+.slider {
+    display: flex;
+    transition: transform 0.3s ease;
+}
+
+.slide {
+    flex: 0 0 100%;
+    transition: opacity 0.3s ease;
+}
+
+.slide:not(.active) {
+    display: none;
+}
+
+.slide.active {
+    display: block;
+    animation: slideIn 0.5s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ===== IMPROVED IMAGE VIEWER ===== */
+.modal.active {
+    display: flex;
+    animation: modalAppear 0.3s ease;
+}
+
+@keyframes modalAppear {
+    from {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+    }
+    to {
+        opacity: 1;
+        backdrop-filter: blur(5px);
+    }
+}
+
+/* ===== FIXED Z-INDEX ISSUES ===== */
+.floating-nav {
+    z-index: 1000;
+}
+
+.modal {
+    z-index: 10000;
+}
+
+.fab-container {
+    z-index: 999;
+}
+
+.preloader {
+    z-index: 10000;
+}
+
+/* ===== ENHANCED TOUCH INTERACTIONS ===== */
+@media (hover: none) {
+    .nav-link[title]::after {
+        display: none;
+    }
+
+    .service-card:hover,
+    .viz-item:hover {
+        transform: none;
+    }
+
+    .btn:active,
+    .nav-link:active {
+        transform: scale(0.98);
+    }
+}
+
+/* ===== FIXED LOADING STATES ===== */
+.image-container.loading {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* ===== IMPROVED ACCESSIBILITY ===== */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ===== FIXED SECURITY WARNING POSITION ===== */
+.security-warning {
+    max-width: 90% !important;
+    right: 5% !important;
+    left: 5% !important;
+}
+
+/* ===== ENHANCED MOBILE MAP ===== */
+@media (max-width: 768px) {
+    #map {
+    height: 250px;
+    }
+
+    .map-overlay {
+        padding: 0.8rem;
+        font-size: 14px;
+    }
+}
+/* ===== ENHANCED FAB - ICONS ONLY ===== */
+.fab-options.mobile-icons-only .fab-option {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    justify-content: center;
+}
+
+.fab-options.mobile-icons-only .fab-label {
+    display: none !important;
+}
+
+/* Убираем надписи на всех устройствах */
+.fab-option {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    box-shadow: var(--shadow);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 1.2rem;
+    position: relative;
+}
+
+/* Enhanced hover effects for FAB */
+.fab-option:hover {
+    transform: translateY(-3px) scale(1.1);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+.fab-option.telegram {
+    background: #0088cc;
+    animation-delay: 0.1s;
+}
+.fab-option.email {
+    background: #ea4335;
+    animation-delay: 0.2s;
+}
+.fab-option.phone {
+    background: #25D366;
+    animation-delay: 0.3s;
+}
+
+/* ===== ENHANCED SLIDER SMOOTHNESS ===== */
+.slider {
+    display: flex;
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.slide {
+    flex: 0 0 100%;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    transform: translateX(100%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slide.active {
+    opacity: 1;
+    transform: translateX(0);
+    position: relative;
+    z-index: 2;
+}
+
+.slide.prev {
+    transform: translateX(-100%);
+}
+
+.slide.next {
+    transform: translateX(100%);
+}
+
+/* Enhanced image container transitions */
+.image-container {
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+.image-container:hover {
+    transform: scale(1.02);
+}
+
+.image-container img {
+    transition: all 0.5s ease;
+}
+
+/* Enhanced slider navigation */
+.slider-nav {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.slider-nav:hover {
+    transform: scale(1.15);
+    background: var(--primary-dark);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Enhanced indicators */
+.indicator {
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.indicator::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.5s ease;
+}
+
+.indicator:hover::before {
+    left: 100%;
+}
+
+.indicator.active {
+    transform: scale(1.3);
+    box-shadow: 0 0 0 2px var(--primary);
+}
+
+/* Enhanced slider counter */
+.slider-counter {
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+/* ===== SMOOTH MODAL TRANSITIONS ===== */
+.modal {
+    transition: all 0.3s ease;
+}
+
+.modal.active {
+    animation: modalAppear 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes modalAppear {
+    0% {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+    }
+    100% {
+        opacity: 1;
+        backdrop-filter: blur(5px);
+    }
+}
+
+.modal-content {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: modalContentAppear 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes modalContentAppear {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* ===== ENHANCED MOBILE SLIDER ===== */
+@media (max-width: 768px) {
+    .slider {
+        overflow: hidden;
+    }
+
+    .slide {
+        padding: 1rem;
+    }
+
+    .image-container {
+        min-height: 250px;
+        border-radius: 12px;
+    }
+
+    .portfolio-image {
+        max-height: 250px;
+        object-fit: contain;
+    }
+
+    /* Enhanced mobile navigation */
+    .slider-nav {
+        width: 44px;
+        height: 44px;
+        font-size: 1rem;
+    }
+
+    .slider-nav.prev {
+        left: 10px;
+    }
+
+    .slider-nav.next {
+        right: 10px;
+    }
+
+    /* Enhanced mobile indicators */
+    .slider-indicators {
+        gap: 8px;
+        margin-top: 1.5rem;
+    }
+
+    .indicator {
+        width: 12px;
+        height: 12px;
+    }
+
+    .indicator.active {
+        transform: scale(1.2);
+    }
+}
+
+/* ===== SMOOTH SCROLL BEHAVIOR ===== */
+html {
+    scroll-behavior: smooth;
+}
+
+/* ===== ENHANCED LOADING STATES ===== */
+.slider-container.loading::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    z-index: 10;
+}
+
+/* ===== IMPROVED ACCESSIBILITY ===== */
+@media (prefers-reduced-motion: reduce) {
+    .slide,
+    .slider-nav,
+    .indicator,
+    .fab-option,
+    .modal,
+    .modal-content {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
+}
+
+/* ===== ENHANCED FAB ANIMATIONS ===== */
+.fab-options.active .fab-option {
+    animation: fabAppear 0.3s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes fabAppear {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ===== SMOOTH ZOOM EFFECTS ===== */
+.zoom-btn {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.zoom-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+/* ===== ENHANCED MAP STYLING ===== */
+.map-container {
+    transition: all 0.3s ease;
+}
+
+.map-container:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}

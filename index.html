@@ -207,25 +207,28 @@
     <!-- Floating Navigation -->
     <nav class="floating-nav">
         <div class="nav-container">
-            <a href="#hero" class="nav-logo">Дата-специалист</a>
+            <a href="#hero" class="nav-logo">
+                <i class="fas fa-chart-line"></i>
+                <span>Дата-специалист</span>
+            </a>
             <div class="nav-links">
-                <a href="#about" title="Обо мне - Узнайте больше о моем опыте и навыках">
+                <a href="#about" class="nav-link" title="Обо мне - Узнайте больше о моем опыте и навыках">
                     <i class="fas fa-user-tie"></i>
                     <span class="nav-text">Обо мне</span>
                 </a>
-                <a href="#services" title="Услуги - Посмотрите что я могу сделать для вашего бизнеса">
+                <a href="#services" class="nav-link" title="Услуги - Посмотрите что я могу сделать для вашего бизнеса">
                     <i class="fas fa-cogs"></i>
                     <span class="nav-text">Услуги</span>
                 </a>
-                <a href="#portfolio" title="Портфолио - Реальные примеры моих работ">
+                <a href="#portfolio" class="nav-link" title="Портфолио - Реальные примеры моих работ">
                     <i class="fas fa-briefcase"></i>
                     <span class="nav-text">Портфолио</span>
                 </a>
-                <a href="#process" title="Процесс работы - Как мы будем работать вместе">
+                <a href="#process" class="nav-link" title="Процесс работы - Как мы будем работать вместе">
                     <i class="fas fa-chart-line"></i>
                     <span class="nav-text">Процесс</span>
                 </a>
-                <a href="#contact" title="Контакты - Свяжитесь со мной для обсуждения проекта">
+                <a href="#contact" class="nav-link" title="Контакты - Свяжитесь со мной для обсуждения проекта">
                     <i class="fas fa-envelope"></i>
                     <span class="nav-text">Контакты</span>
                 </a>
@@ -515,7 +518,7 @@
                                                     data-image="assets/images/raw_date.png"
                                                     data-caption="Исходные необработанные данные">
                                                 <i class="fas fa-expand"></i>
-                                                Увеличить
+                                                <span class="zoom-text">Увеличить</span>
                                             </button>
                                         </div>
                                     </div>
@@ -536,7 +539,7 @@
                                                     data-image="assets/images/clean_date.png"
                                                     data-caption="Очищенные и структурированные данные">
                                                 <i class="fas fa-expand"></i>
-                                                Увеличить
+                                                <span class="zoom-text">Увеличить</span>
                                             </button>
                                         </div>
                                     </div>
@@ -557,7 +560,7 @@
                                                     data-image="assets/images/График Динамика росходов и расходов по месяцам.png"
                                                     data-caption="Динамика доходов и расходов за 8 месяцев">
                                                 <i class="fas fa-expand"></i>
-                                                Увеличить
+                                                <span class="zoom-text">Увеличить</span>
                                             </button>
                                         </div>
                                     </div>
@@ -578,7 +581,7 @@
                                                     data-image="assets/images/График Динамика баланса п месяцам .png"
                                                     data-caption="Динамика баланса по месяцам">
                                                 <i class="fas fa-expand"></i>
-                                                Увеличить
+                                                <span class="zoom-text">Увеличить</span>
                                             </button>
                                         </div>
                                     </div>
@@ -599,7 +602,7 @@
                                                     data-image="assets/images/Динамика дохода и расхода в апрель месяц графики .png"
                                                     data-caption="Анализ доходов и расходов за апрель">
                                                 <i class="fas fa-expand"></i>
-                                                Увеличить
+                                                <span class="zoom-text">Увеличить</span>
                                             </button>
                                         </div>
                                     </div>
@@ -620,7 +623,7 @@
                                                     data-image="assets/images/Финансовые результаты.png"
                                                     data-caption="Ключевые финансовые показатели">
                                                 <i class="fas fa-expand"></i>
-                                                Увеличить
+                                                <span class="zoom-text">Увеличить</span>
                                             </button>
                                         </div>
                                     </div>
@@ -641,7 +644,7 @@
                                                     data-image="assets/images/Показатели и Расход по приоритетам.png"
                                                     data-caption="Расходы по приоритетам">
                                                 <i class="fas fa-expand"></i>
-                                                Увеличить
+                                                <span class="zoom-text">Увеличить</span>
                                             </button>
                                         </div>
                                     </div>
@@ -662,7 +665,7 @@
                                                     data-image="assets/images/Интерактивный дашборд.png"
                                                     data-caption="Интерактивный дашборд управления финансами">
                                                 <i class="fas fa-expand"></i>
-                                                Увеличить
+                                                <span class="zoom-text">Увеличить</span>
                                             </button>
                                         </div>
                                     </div>
@@ -927,23 +930,23 @@
         </div>
     </div>
 
-    <!-- Floating Action Button -->
-    <div class="fab-container">
-        <button class="fab-button" id="fabMain" title="Быстрые контакты">
-            <i class="fas fa-comments"></i>
-        </button>
-        <div class="fab-options">
-            <a href="https://t.me/tonettes7" class="fab-option telegram" title="Написать в Telegram" target="_blank" rel="noopener noreferrer">
-                <i class="fab fa-telegram"></i>
-            </a>
-            <a href="mailto:t.radiya7@gmail.com" class="fab-option email" title="Написать письмо">
-                <i class="fas fa-envelope"></i>
-            </a>
-            <a href="tel:+79380130796" class="fab-option phone" title="Позвонить">
-                <i class="fas fa-phone"></i>
-            </a>
-        </div>
+   <!-- Floating Action Button -->
+<div class="fab-container">
+    <button class="fab-button" id="fabMain" title="Быстрые контакты">
+        <i class="fas fa-comments"></i>
+    </button>
+    <div class="fab-options">
+        <a href="https://t.me/tonettes7" class="fab-option telegram" title="Написать в Telegram" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-telegram"></i>
+        </a>
+        <a href="mailto:t.radiya7@gmail.com" class="fab-option email" title="Написать письмо">
+            <i class="fas fa-envelope"></i>
+        </a>
+        <a href="tel:+79380130796" class="fab-option phone" title="Позвонить">
+            <i class="fas fa-phone"></i>
+        </a>
     </div>
+</div>
 
     <!-- Back to Top Button -->
     <button class="back-to-top" title="Вернуться наверх">

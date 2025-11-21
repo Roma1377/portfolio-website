@@ -1,8 +1,8 @@
-// script.js - Protected Portfolio with Working Security
+// script.js - Enhanced Mobile Version with Critical Fixes
 (function(){
     'use strict';
 
-    // Enhanced Security System (Non-blocking)
+    // Enhanced Security System (Mobile Optimized)
     class SecuritySystem {
         constructor() {
             this.attempts = 0;
@@ -16,7 +16,7 @@
         }
 
         protectContent() {
-            // Basic context menu protection for images only
+            // Enhanced mobile protection
             document.addEventListener('contextmenu', (e) => {
                 if (e.target.tagName === 'IMG' && e.target.classList.contains('protected-image')) {
                     e.preventDefault();
@@ -25,7 +25,6 @@
                 }
             });
 
-            // Basic drag protection for images only
             document.addEventListener('dragstart', (e) => {
                 if (e.target.tagName === 'IMG' && e.target.classList.contains('protected-image')) {
                     e.preventDefault();
@@ -34,7 +33,6 @@
                 }
             });
 
-            // Basic copy protection for protected content
             document.addEventListener('copy', (e) => {
                 if (e.target.classList.contains('protected-content')) {
                     e.preventDefault();
@@ -45,9 +43,7 @@
         }
 
         setupBasicProtection() {
-            // Basic keyboard protection - non-blocking
             document.addEventListener('keydown', (e) => {
-                // Only block PrintScreen for protected content view
                 if (e.key === 'PrintScreen') {
                     const activeModal = document.querySelector('.modal.active');
                     if (activeModal) {
@@ -64,32 +60,31 @@
             warning.style.cssText = `
             position: fixed;
             top: 20px;
-            right: 20px;
+            left: 5%;
+            right: 5%;
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
-            padding: 12px 18px;
-            border-radius: 8px;
+            padding: 12px 16px;
+            border-radius: 10px;
             z-index: 10000;
             font-family: Inter, sans-serif;
             box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
             border-left: 4px solid #5a6fd8;
-            max-width: 300px;
             font-weight: 500;
-            font-size: 0.85rem;
-            transform: translateX(400px);
+            font-size: 14px;
+            text-align: center;
+            transform: translateY(-100px);
             transition: transform 0.3s ease;
             `;
             warning.innerHTML = `<i class="fas fa-shield-alt" style="margin-right: 8px;"></i>${message}`;
             document.body.appendChild(warning);
 
-            // Animate in
             setTimeout(() => {
-                warning.style.transform = 'translateX(0)';
+                warning.style.transform = 'translateY(0)';
             }, 100);
 
-            // Remove after delay
             setTimeout(() => {
-                warning.style.transform = 'translateX(400px)';
+                warning.style.transform = 'translateY(-100px)';
                 setTimeout(() => {
                     if (document.body.contains(warning)) {
                         document.body.removeChild(warning);
@@ -99,7 +94,7 @@
         }
     }
 
-    // Main Portfolio Application
+    // Enhanced Portfolio Application with Mobile Fixes
     class PortfolioApp {
         constructor() {
             this.security = new SecuritySystem();
@@ -108,7 +103,12 @@
             this.map = null;
             this.mapInitialized = false;
             this.sliderInterval = null;
+            this.isMobile = this.detectMobile();
             this.init();
+        }
+
+        detectMobile() {
+            return window.innerWidth <= 768;
         }
 
         init() {
@@ -130,8 +130,70 @@
             this.setupSlider();
             this.updateCopyright();
             this.setupConsoleGreeting();
+            this.setupMobileEnhancements();
 
             this.isInitialized = true;
+        }
+
+        setupMobileEnhancements() {
+            // Enhanced touch interactions
+            if (this.isMobile) {
+                this.setupTouchOptimizations();
+                this.setupMobileNavigation();
+            }
+
+            // Handle resize events
+            window.addEventListener('resize', () => {
+                this.isMobile = this.detectMobile();
+                if (this.map) {
+                    setTimeout(() => {
+                        this.map.invalidateSize();
+                    }, 100);
+                }
+            });
+        }
+
+        setupTouchOptimizations() {
+            // Improved touch targets
+            document.querySelectorAll('.btn, .nav-link, .slider-nav, .indicator').forEach(el => {
+                el.style.minHeight = '44px';
+                el.style.minWidth = '44px';
+            });
+
+            // Prevent zoom on double tap
+            let lastTouchEnd = 0;
+            document.addEventListener('touchend', (e) => {
+                const now = (new Date()).getTime();
+                if (now - lastTouchEnd <= 300) {
+                    e.preventDefault();
+                }
+                lastTouchEnd = now;
+            }, false);
+        }
+
+        setupMobileNavigation() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('touchstart', (e) => {
+                    e.currentTarget.style.transform = 'scale(0.95)';
+                });
+
+                link.addEventListener('touchend', (e) => {
+                    e.currentTarget.style.transform = 'scale(1)';
+                });
+            });
+
+            // Close menu when clicking outside on mobile
+            document.addEventListener('touchstart', (e) => {
+                const nav = document.querySelector('.floating-nav');
+                const navToggle = document.querySelector('.nav-toggle');
+                const navLinks = document.querySelector('.nav-links');
+
+                if (!nav.contains(e.target) && navLinks.classList.contains('active')) {
+                    navToggle.classList.remove('active');
+                    navLinks.classList.remove('active');
+                }
+            });
         }
 
         setupPreloader() {
@@ -144,7 +206,6 @@
                 }, 1000);
             });
 
-            // Fallback
             setTimeout(() => {
                 const preloader = document.querySelector('.preloader');
                 if (preloader && !preloader.classList.contains('loaded')) {
@@ -160,7 +221,7 @@
 
             if (!nav) return;
 
-            // Sticky navigation
+            // Enhanced sticky navigation
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 100) {
                     nav.classList.add('scrolled');
@@ -169,25 +230,32 @@
                 }
             });
 
-            // Mobile menu toggle
+            // Enhanced mobile menu toggle
             if (navToggle) {
-                navToggle.addEventListener('click', () => {
+                navToggle.addEventListener('click', (e) => {
+                    e.stopPropagation();
                     navToggle.classList.toggle('active');
                     navLinks.classList.toggle('active');
+
+                    // Close FAB when mobile menu is open
+                    const fabOptions = document.querySelector('.fab-options');
+                    if (fabOptions && fabOptions.classList.contains('active')) {
+                        fabOptions.classList.remove('active');
+                    }
                 });
             }
 
-            // Close mobile menu when clicking on a link
-            document.querySelectorAll('.nav-links a').forEach(link => {
+            // Enhanced mobile menu close
+            document.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', () => {
-                    if (navToggle.classList.contains('active')) {
+                    if (this.isMobile && navToggle.classList.contains('active')) {
                         navToggle.classList.remove('active');
                         navLinks.classList.remove('active');
                     }
                 });
             });
 
-            // Smooth scroll for navigation links
+            // Enhanced smooth scroll
             document.querySelectorAll('a[href^="#"]').forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -201,14 +269,21 @@
                             behavior: 'smooth'
                         });
 
-                        // Update map size when scrolling to contact section
-                        if (targetId === '#contact' && this.map && !this.mapInitialized) {
-                            setTimeout(() => {
-                                this.initializeMap();
-                            }, 500);
+                        // Close mobile menu after click
+                        if (this.isMobile && navToggle.classList.contains('active')) {
+                            navToggle.classList.remove('active');
+                            navLinks.classList.remove('active');
                         }
                     }
                 });
+            });
+
+            // Enhanced outside click for mobile
+            document.addEventListener('click', (e) => {
+                if (!nav.contains(e.target) && navLinks.classList.contains('active')) {
+                    navToggle.classList.remove('active');
+                    navLinks.classList.remove('active');
+                }
             });
         }
 
@@ -229,7 +304,6 @@
                 }
             };
 
-            // Check for saved theme or prefer color scheme
             const savedTheme = localStorage.getItem('theme');
             const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
@@ -256,7 +330,6 @@
                     if (entry.isIntersecting) {
                         entry.target.classList.add('animate-in');
 
-                        // Animate skill bars
                         if (entry.target.classList.contains('skill-progress')) {
                             const level = entry.target.getAttribute('data-level');
                             setTimeout(() => {
@@ -264,7 +337,6 @@
                             }, 300);
                         }
 
-                        // Initialize map when contact section becomes visible
                         if (entry.target.id === 'contact' && !this.mapInitialized) {
                             setTimeout(() => {
                                 this.initializeMap();
@@ -274,7 +346,6 @@
                 });
             }, observerOptions);
 
-            // Observe all animated elements
             document.querySelectorAll('.section, .service-card, .skill-progress, .viz-item, .process-step').forEach(el => {
                 el.classList.add('animate-on-scroll');
                 observer.observe(el);
@@ -302,13 +373,11 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         setTimeout(() => {
-                            // Hero stats
                             document.querySelectorAll('.stat-number').forEach(stat => {
                                 const target = parseInt(stat.getAttribute('data-count'));
                                 animateCounter(stat, target);
                             });
 
-                            // Project stats
                             document.querySelectorAll('.stat-value').forEach(stat => {
                                 if (stat.textContent.includes('₽')) {
                                     const value = stat.textContent.replace(/[^\d]/g, '');
@@ -338,7 +407,7 @@
             if (typeof particlesJS !== 'undefined') {
                 particlesJS('particles-js', {
                     particles: {
-                        number: { value: 60, density: { enable: true, value_area: 800 } },
+                        number: { value: this.isMobile ? 20 : 30, density: { enable: true, value_area: 800 } },
                         color: { value: "#ffffff" },
                         shape: { type: "circle" },
                         opacity: { value: 0.5, random: true },
@@ -381,6 +450,7 @@
 
             if (!modal) return;
 
+            // Enhanced modal for mobile
             document.querySelectorAll('.zoom-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -392,10 +462,24 @@
                     modalCaption.textContent = caption;
                     modal.classList.add('active');
                     document.body.style.overflow = 'hidden';
+
+                    // Enhanced mobile menu close
+                    const navToggle = document.querySelector('.nav-toggle');
+                    const navLinks = document.querySelector('.nav-links');
+                    if (navToggle && navToggle.classList.contains('active')) {
+                        navToggle.classList.remove('active');
+                        navLinks.classList.remove('active');
+                    }
+
+                    // Close FAB
+                    const fabOptions = document.querySelector('.fab-options');
+                    if (fabOptions && fabOptions.classList.contains('active')) {
+                        fabOptions.classList.remove('active');
+                    }
                 });
             });
 
-            // Close modal
+            // Enhanced modal close
             [closeBtn, modal].forEach(element => {
                 element.addEventListener('click', (e) => {
                     if (e.target === closeBtn || e.target === modal) {
@@ -407,13 +491,23 @@
                 });
             });
 
-            // Close on Escape
+            // Enhanced Escape close
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape' && modal.classList.contains('active')) {
                     modal.classList.remove('active');
                     document.body.style.overflow = '';
                 }
             });
+
+            // Enhanced touch close for mobile
+            if (this.isMobile) {
+                modal.addEventListener('touchstart', (e) => {
+                    if (e.target === modal) {
+                        modal.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                });
+            }
         }
 
         setupContactForm() {
@@ -447,10 +541,18 @@
                     }
                 });
 
-                // Real-time validation
+                // Enhanced validation for mobile
                 contactForm.querySelectorAll('input, textarea').forEach(input => {
                     input.addEventListener('blur', () => {
                         this.validateField(input);
+                    });
+
+                    input.addEventListener('input', () => {
+                        const formGroup = input.closest('.form-group');
+                        if (formGroup.classList.contains('error') && input.value.trim()) {
+                            formGroup.classList.remove('error');
+                            formGroup.querySelector('.validation-error').textContent = '';
+                        }
                     });
                 });
             }
@@ -473,18 +575,15 @@
             const formGroup = field.closest('.form-group');
             const errorElement = formGroup.querySelector('.validation-error');
 
-            // Reset validation state
             formGroup.classList.remove('error');
             errorElement.textContent = '';
 
-            // Check required fields
             if (field.hasAttribute('required') && !field.value.trim()) {
                 formGroup.classList.add('error');
                 errorElement.textContent = 'Это поле обязательно для заполнения';
                 return false;
             }
 
-            // Check email format
             if (field.type === 'email' && field.value.trim()) {
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (!emailRegex.test(field.value)) {
@@ -504,7 +603,8 @@
             notification.style.cssText = `
             position: fixed;
             top: 20px;
-            right: 20px;
+            left: 5%;
+            right: 5%;
             background: ${bgColor};
             color: white;
             padding: 15px 20px;
@@ -513,21 +613,19 @@
             font-family: Inter, sans-serif;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             border-left: 4px solid ${bgColor}99;
-            max-width: 400px;
-            transform: translateX(400px);
+            text-align: center;
+            transform: translateY(-100px);
             transition: transform 0.3s ease;
             `;
             notification.innerHTML = `<i class="fas fa-${type === 'success' ? 'check' : 'info'}-circle" style="margin-right: 8px;"></i>${message}`;
             document.body.appendChild(notification);
 
-            // Animate in
             setTimeout(() => {
-                notification.style.transform = 'translateX(0)';
+                notification.style.transform = 'translateY(0)';
             }, 100);
 
-            // Remove after delay
             setTimeout(() => {
-                notification.style.transform = 'translateX(400px)';
+                notification.style.transform = 'translateY(-100px)';
                 setTimeout(() => {
                     if (document.body.contains(notification)) {
                         document.body.removeChild(notification);
@@ -541,21 +639,29 @@
             const fabOptions = document.querySelector('.fab-options');
 
             if (fabButton && fabOptions) {
-                // Toggle FAB options
+                // Enhanced FAB for mobile
                 fabButton.addEventListener('click', (e) => {
                     e.preventDefault();
                     e.stopPropagation();
                     fabOptions.classList.toggle('active');
+
+                    // Close mobile menu if open
+                    const navToggle = document.querySelector('.nav-toggle');
+                    const navLinks = document.querySelector('.nav-links');
+                    if (navToggle && navToggle.classList.contains('active')) {
+                        navToggle.classList.remove('active');
+                        navLinks.classList.remove('active');
+                    }
                 });
 
-                // Close FAB when clicking outside
+                // Enhanced outside click
                 document.addEventListener('click', (e) => {
                     if (!fabButton.contains(e.target) && !fabOptions.contains(e.target)) {
                         fabOptions.classList.remove('active');
                     }
                 });
 
-                // Close FAB after clicking an option
+                // Enhanced option click
                 fabOptions.addEventListener('click', (e) => {
                     if (e.target.closest('.fab-option')) {
                         setTimeout(() => {
@@ -563,6 +669,11 @@
                         }, 300);
                     }
                 });
+
+                // Убраны надписи для FAB - остались только иконки
+                if (this.isMobile) {
+                    fabOptions.classList.add('mobile-icons-only');
+                }
             }
         }
 
@@ -642,114 +753,29 @@
 
             setTimeout(typeWriter, 2000);
         }
-
         setupMap() {
             const mapElement = document.getElementById('map');
             if (!mapElement) return;
 
-            // Create a simple placeholder for map
+            // Убрана глобальная работа, оставлена только Москва
             mapElement.innerHTML = `
             <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; background: var(--light); color: var(--gray); border-radius: var(--border-radius); padding: 2rem; text-align: center;">
-            <i class="fas fa-globe" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
-            <h4 style="margin-bottom: 0.5rem; color: var(--dark);">Глобальная удаленная работа</h4>
-            <p style="opacity: 0.8; margin-bottom: 1rem;">Работаю с клиентами по всему миру</p>
-            <div style="display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; justify-content: center;">
+            <i class="fas fa-map-marker-alt" style="font-size: ${this.isMobile ? '2rem' : '3rem'}; margin-bottom: 1rem; opacity: 0.5;"></i>
+            <h4 style="margin-bottom: 0.5rem; color: var(--dark); font-size: ${this.isMobile ? '1.1rem' : '1.3rem'};">Москва, Россия</h4>
+            <p style="opacity: 0.8; margin-bottom: 1rem; font-size: ${this.isMobile ? '0.9rem' : '1rem'};">Основная локация работы</p>
+            <div style="display: flex; gap: 0.8rem; margin-top: 1rem; flex-wrap: wrap; justify-content: center;">
             <span style="background: var(--primary); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem;">🌍 UTC+3</span>
-            <span style="background: var(--secondary); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem;">💼 Удаленно</span>
             <span style="background: var(--success); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem;">🚀 Доступна</span>
             </div>
-            <p style="margin-top: 1.5rem; font-size: 0.9rem; opacity: 0.7;">
-            <i class="fas fa-map-marker-alt"></i>
-            Основное время работы: Москва, Россия
-            </p>
             </div>
             `;
         }
 
         initializeMap() {
             if (this.mapInitialized) return;
-
-            const mapElement = document.getElementById('map');
-            if (!mapElement) return;
-
-            try {
-                // Remove placeholder content
-                mapElement.innerHTML = '';
-
-                // Initialize map with proper settings
-                this.map = L.map('map', {
-                    zoomControl: true,
-                    scrollWheelZoom: false,
-                    dragging: true,
-                    tap: true
-                }).setView([55.7558, 37.6173], 2);
-
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '© OpenStreetMap contributors',
-                    maxZoom: 18,
-                    minZoom: 1
-                }).addTo(this.map);
-
-                // Add main marker
-                const mainMarker = L.marker([55.7558, 37.6173]).addTo(this.map);
-                mainMarker.bindPopup(`
-                <div style="text-align: center; padding: 0.5rem;">
-                <strong>📍 Основная локация</strong><br>
-                Москва, Россия<br>
-                <small>Работаю удаленно по всему миру</small>
-                </div>
-                `).openPopup();
-
-                // Add some additional markers to show global presence
-                const locations = [
-                    [40.7128, -74.0060, 'Нью-Йорк, США'],
-                    [51.5074, -0.1278, 'Лондон, Великобритания'],
-                    [48.8566, 2.3522, 'Париж, Франция'],
-                    [35.6762, 139.6503, 'Токио, Япония'],
-                    [52.5200, 13.4050, 'Берлин, Германия']
-                ];
-
-                locations.forEach(([lat, lng, city]) => {
-                    L.marker([lat, lng])
-                    .addTo(this.map)
-                    .bindPopup(`<strong>${city}</strong><br>Удаленная работа доступна`);
-                });
-
-                // Fit map to show all markers with padding
-                const bounds = L.latLngBounds([
-                    [55.7558, 37.6173], // Moscow
-                    [40.7128, -74.0060], // New York
-                    [51.5074, -0.1278], // London
-                    [35.6762, 139.6503] // Tokyo
-                ]);
-                this.map.fitBounds(bounds, { padding: [20, 20] });
-
-                // Update map size after a short delay to ensure container is visible
-                setTimeout(() => {
-                    this.map.invalidateSize();
-                }, 100);
-
-                this.mapInitialized = true;
-
-            } catch (error) {
-                console.log('Map initialization failed:', error);
-                // Fallback to placeholder
-                mapElement.innerHTML = `
-                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; background: var(--light); color: var(--gray); border-radius: var(--border-radius); padding: 2rem; text-align: center;">
-                <i class="fas fa-globe" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
-                <h4 style="margin-bottom: 0.5rem; color: var(--dark);">Глобальная удаленная работа</h4>
-                <p style="opacity: 0.8;">Карта временно недоступна</p>
-                <div style="display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; justify-content: center;">
-                <span style="background: var(--primary); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem;">🌍 UTC+3</span>
-                <span style="background: var(--secondary); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem;">💼 Удаленно</span>
-                <span style="background: var(--success); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem;">🚀 Доступна</span>
-                </div>
-                </div>
-                `;
-            }
+            this.mapInitialized = true;
         }
 
-        // В методе setupSlider() заменяем всю функцию на исправленную версию:
         setupSlider() {
             const slider = document.querySelector('.slider');
             const slides = document.querySelectorAll('.slide');
@@ -759,67 +785,77 @@
             const currentSlideElement = document.querySelector('.current-slide');
             const totalSlidesElement = document.querySelector('.total-slides');
 
-            if (!slider || slides.length === 0) {
-                console.log('Slider elements not found');
-                return;
-            }
+            if (!slider || slides.length === 0) return;
 
             let currentSlide = 0;
             const totalSlides = slides.length;
-            let isAnimating = false; // FIX: Защита от множественных кликов
+            let isAnimating = false;
+            let startX = 0;
+            let currentX = 0;
+            let isDragging = false;
 
-            // FIX: Упрощенная инициализация
             const initializeSlider = () => {
                 totalSlidesElement.textContent = totalSlides;
                 updateSliderCounter(currentSlide + 1);
                 updateSliderState();
 
-                // Показываем первый слайд
                 slides.forEach((slide, index) => {
                     slide.classList.remove('active');
+                    slide.style.transform = 'translateX(100%)';
+                    slide.style.opacity = '0';
                 });
+
                 slides[0].classList.add('active');
+                slides[0].style.transform = 'translateX(0)';
+                slides[0].style.opacity = '1';
+
                 if (indicators.length > 0) {
                     indicators[0].classList.add('active');
                 }
             };
 
-            const goToSlide = (index) => {
+            const goToSlide = (index, direction = 'next') => {
                 if (isAnimating) return;
                 isAnimating = true;
 
-                // FIX: Упрощенное переключение без сложных анимаций
-                slides[currentSlide].classList.remove('active');
-                if (indicators.length > 0) {
-                    indicators[currentSlide].classList.remove('active');
-                }
+                const currentActive = slides[currentSlide];
+                const nextActive = slides[index];
 
-                currentSlide = index;
+                // Убираем текущий слайд
+                currentActive.style.transform = direction === 'next' ? 'translateX(-100%)' : 'translateX(100%)';
+                currentActive.style.opacity = '0';
 
-                slides[currentSlide].classList.add('active');
-                if (indicators.length > 0) {
-                    indicators[currentSlide].classList.add('active');
-                }
+                // Показываем следующий слайд
+                nextActive.style.transform = 'translateX(0)';
+                nextActive.style.opacity = '1';
 
-                updateSliderCounter(currentSlide + 1);
-                updateSliderState();
-
-                // FIX: Сбрасываем флаг анимации после задержки
+                // Обновляем классы
                 setTimeout(() => {
+                    currentActive.classList.remove('active');
+                    nextActive.classList.add('active');
+
+                    if (indicators.length > 0) {
+                        indicators[currentSlide].classList.remove('active');
+                        indicators[index].classList.add('active');
+                    }
+
+                    currentSlide = index;
+                    updateSliderCounter(currentSlide + 1);
+                    updateSliderState();
                     isAnimating = false;
                 }, 500);
             };
 
             const nextSlide = () => {
                 const nextIndex = (currentSlide + 1) % totalSlides;
-                goToSlide(nextIndex);
-                resetAutoSlide();
+                goToSlide(nextIndex, 'next');
+                this.resetAutoSlide();
             };
 
             const prevSlide = () => {
                 const prevIndex = (currentSlide - 1 + totalSlides) % totalSlides;
-                goToSlide(prevIndex);
-                resetAutoSlide();
+                goToSlide(prevIndex, 'prev');
+                this.resetAutoSlide();
             };
 
             const updateSliderCounter = (index) => {
@@ -829,7 +865,6 @@
             };
 
             const updateSliderState = () => {
-                // FIX: Упрощенное обновление состояния кнопок
                 if (prevBtn && nextBtn) {
                     prevBtn.style.opacity = currentSlide === 0 ? '0.5' : '1';
                     nextBtn.style.opacity = currentSlide === totalSlides - 1 ? '0.5' : '1';
@@ -838,7 +873,7 @@
                 }
             };
 
-            // FIX: Упрощенные обработчики событий
+            // Enhanced event listeners
             if (nextBtn) {
                 nextBtn.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -859,26 +894,80 @@
                 });
             }
 
-            // FIX: Индикаторы
+            // Enhanced indicators
             indicators.forEach((indicator, index) => {
                 indicator.addEventListener('click', (e) => {
                     e.preventDefault();
                     e.stopPropagation();
                     if (index !== currentSlide) {
-                        goToSlide(index);
-                        resetAutoSlide();
+                        const direction = index > currentSlide ? 'next' : 'prev';
+                        goToSlide(index, direction);
+                        this.resetAutoSlide();
                     }
                 });
             });
 
-            // FIX: Упрощенная автоматическая прокрутка
+            // Enhanced touch support with smooth dragging
+            slider.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                currentX = startX;
+                isDragging = true;
+                this.stopAutoSlide();
+            });
+
+            slider.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                currentX = e.touches[0].clientX;
+                const diff = currentX - startX;
+
+                // Плавное перемещение слайда при драге
+                if (Math.abs(diff) > 10) {
+                    const currentActive = slides[currentSlide];
+                    const translateX = diff * 0.5;
+                    currentActive.style.transform = `translateX(${translateX}px)`;
+                }
+            });
+
+            slider.addEventListener('touchend', (e) => {
+                if (!isDragging) return;
+                isDragging = false;
+
+                const diff = currentX - startX;
+                const swipeThreshold = 50;
+
+                if (Math.abs(diff) > swipeThreshold) {
+                    if (diff > 0 && currentSlide > 0) {
+                        // Swipe right - previous
+                        prevSlide();
+                    } else if (diff < 0 && currentSlide < totalSlides - 1) {
+                        // Swipe left - next
+                        nextSlide();
+                    } else {
+                        // Return to current position
+                        resetSlidePosition();
+                    }
+                } else {
+                    resetSlidePosition();
+                }
+
+                setTimeout(() => {
+                    this.startAutoSlide();
+                }, 3000);
+            });
+
+            const resetSlidePosition = () => {
+                const currentActive = slides[currentSlide];
+                currentActive.style.transform = 'translateX(0)';
+            };
+
+            // Enhanced auto slide
             this.startAutoSlide = () => {
                 this.stopAutoSlide();
                 this.sliderInterval = setInterval(() => {
                     if (currentSlide < totalSlides - 1) {
                         nextSlide();
                     } else {
-                        goToSlide(0);
+                        goToSlide(0, 'next');
                     }
                 }, 5000);
             };
@@ -895,11 +984,11 @@
                 this.startAutoSlide();
             };
 
-            // FIX: Инициализация
+            // Initialize
             initializeSlider();
             this.startAutoSlide();
 
-            // FIX: Обработчики для паузы при наведении
+            // Enhanced pause on hover/touch
             const sliderContainer = document.querySelector('.slider-container');
             if (sliderContainer) {
                 sliderContainer.addEventListener('mouseenter', () => {
@@ -909,44 +998,21 @@
                 sliderContainer.addEventListener('mouseleave', () => {
                     this.startAutoSlide();
                 });
+
+                sliderContainer.addEventListener('touchstart', () => {
+                    this.stopAutoSlide();
+                });
+
+                sliderContainer.addEventListener('touchend', () => {
+                    setTimeout(() => {
+                        this.startAutoSlide();
+                    }, 3000);
+                });
             }
         }
 
         startAutoSlide() {
-            this.stopAutoSlide(); // Clear any existing interval
-            this.sliderInterval = setInterval(() => {
-                const nextBtn = document.querySelector('.slider-nav.next');
-                if (nextBtn && !nextBtn.disabled) {
-                    const slides = document.querySelectorAll('.slide');
-                    const indicators = document.querySelectorAll('.indicator');
-                    const currentSlideElement = document.querySelector('.current-slide');
-
-                    let currentSlide = 0;
-                    slides.forEach((slide, index) => {
-                        if (slide.classList.contains('active')) {
-                            currentSlide = index;
-                        }
-                    });
-
-                    const nextIndex = (currentSlide + 1) % slides.length;
-
-                    // Remove active class from current slide and indicator
-                    slides[currentSlide].classList.remove('active');
-                    indicators[currentSlide].classList.remove('active');
-
-                    // Add active class to new slide and indicator
-                    slides[nextIndex].classList.add('active');
-                    indicators[nextIndex].classList.add('active');
-
-                    // Update counter
-                    if (currentSlideElement) {
-                        currentSlideElement.textContent = nextIndex + 1;
-                    }
-
-                    // Update button states
-                    this.updateSliderButtons();
-                }
-            }, 5000);
+            this.stopAutoSlide();
         }
 
         stopAutoSlide() {
@@ -959,24 +1025,6 @@
         resetAutoSlide() {
             this.stopAutoSlide();
             this.startAutoSlide();
-        }
-
-        updateSliderButtons() {
-            const prevBtn = document.querySelector('.slider-nav.prev');
-            const nextBtn = document.querySelector('.slider-nav.next');
-            const slides = document.querySelectorAll('.slide');
-
-            let currentSlide = 0;
-            slides.forEach((slide, index) => {
-                if (slide.classList.contains('active')) {
-                    currentSlide = index;
-                }
-            });
-
-            if (prevBtn && nextBtn) {
-                prevBtn.disabled = currentSlide === 0;
-                nextBtn.disabled = currentSlide === slides.length - 1;
-            }
         }
 
         updateCopyright() {
@@ -1002,12 +1050,13 @@
         new PortfolioApp();
     });
 
-    // Add CSS for animations
-    const style = document.createElement('style');
-    style.textContent = `
+    // Add enhanced mobile CSS
+    const mobileStyles = document.createElement('style');
+    mobileStyles.textContent = `
+    /* Enhanced Mobile Animations */
     .animate-on-scroll {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(20px);
         transition: opacity 0.6s ease, transform 0.6s ease;
     }
 
@@ -1016,47 +1065,177 @@
         transform: translateY(0);
     }
 
-    .blurred {
-        filter: blur(5px);
-        transition: filter 0.3s ease;
+    /* Enhanced Mobile Navigation */
+    @media (max-width: 768px) {
+        .nav-links {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            background: var(--lighter);
+            backdrop-filter: blur(20px);
+            padding: 1rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            z-index: 1000;
+            border-top: 1px solid var(--border);
+        }
+
+        .nav-link {
+            display: flex !important;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            min-height: 48px;
+        }
+
+        .nav-text {
+            display: inline-block !important;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .nav-link i {
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .nav-toggle.active ~ .nav-links {
+            display: flex !important;
+        }
     }
 
-    /* Ensure map container has proper dimensions */
-    #map {
-    min-height: 350px;
-    width: 100%;
-    background: var(--light);
-    border-radius: var(--border-radius);
+    /* Enhanced Mobile Slider */
+    @media (max-width: 768px) {
+        .slider-container {
+            margin: 1rem -10px;
+        }
+
+        .slider-wrapper {
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .slide {
+            padding: 1rem;
+        }
+
+        .image-container {
+            min-height: 200px;
+            border-radius: 8px;
+        }
+
+        .portfolio-image {
+            max-height: 200px;
+            object-fit: contain;
+        }
+
+        .viz-item p {
+            font-size: 14px;
+            padding: 8px 12px;
+            margin-top: 12px;
+        }
+
+        .slider-nav {
+            width: 40px;
+            height: 40px;
+            font-size: 14px;
+        }
+
+        .slider-nav.prev {
+            left: 8px;
+        }
+
+        .slider-nav.next {
+            right: 8px;
+        }
+
+        .slider-indicators {
+            gap: 6px;
+            margin-top: 1rem;
+        }
+
+        .indicator {
+            width: 10px;
+            height: 10px;
+        }
+
+        .slider-counter {
+            font-size: 12px;
+        }
     }
 
-    .leaflet-container {
-        background: var(--light) !important;
-        border-radius: var(--border-radius);
+    /* Enhanced Mobile Modal */
+    @media (max-width: 768px) {
+        .modal-content {
+            max-width: 95%;
+            max-height: 90%;
+            padding: 1rem;
+            margin: 1rem;
+        }
+
+        #modalImage {
+        max-height: 60vh;
+        }
+
+        .modal-close {
+            top: -35px;
+            right: 0;
+            width: 35px;
+            height: 35px;
+            font-size: 1.2rem;
+        }
     }
 
-    /* Enhanced slider transitions */
-    .slider {
-        display: flex;
-        transition: transform 0.5s ease-in-out;
+    /* Enhanced Mobile FAB */
+    @media (max-width: 768px) {
+        .fab-options {
+            bottom: 70px;
+            right: 0;
+        }
+
+        .fab-option {
+            width: auto;
+            padding: 0 16px;
+            border-radius: 25px;
+            justify-content: flex-start;
+            gap: 8px;
+        }
+
+        .fab-label {
+            display: inline-block !important;
+            font-size: 12px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
     }
 
-    .slide {
-        transition: opacity 0.5s ease-in-out;
+    /* Enhanced Mobile Typography */
+    @media (max-width: 768px) {
+        .hero-title {
+            font-size: 2.2rem;
+        }
+
+        .section-header h2 {
+            font-size: 1.8rem;
+        }
+
+        .section-header p {
+            font-size: 1rem;
+        }
     }
 
-    .slide:not(.active) {
-        display: none;
-    }
-
-    .slide.active {
-        display: block;
-        animation: fadeIn 0.5s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
+    /* Enhanced Touch Targets */
+    @media (max-width: 768px) {
+        .btn, .nav-link, .slider-nav, .indicator, .fab-option {
+            min-height: 44px;
+            min-width: 44px;
+        }
     }
     `;
-    document.head.appendChild(style);
+    document.head.appendChild(mobileStyles);
 })();
